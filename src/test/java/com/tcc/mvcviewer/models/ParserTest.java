@@ -23,7 +23,7 @@ public class ParserTest {
 	@Before
 	public void before() {
 		paths = new ArrayList<String> ();
-		paths.add("/home/felsamps/Tcc/mvcviewer-tcc/test_data.dat");
+		paths.add("/home/felsamps/Tcc/mvc-viewer/data/test_data.dat");
 		parser = new TraceFileParser(640, 480, 1, 5, paths);
 	}
 

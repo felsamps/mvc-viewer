@@ -19,9 +19,9 @@ public class InputFileTest {
 
 	@Before
 	public void before() {
-		traceFile = new InputTraceFile("/home/felsamps/Tcc/mvcviewer-tcc/test_data.dat");
+		traceFile = new InputTraceFile("/home/felsamps/Tcc/mvc-viewer/data/test_data.dat");
 		//this sequence has 250 frames
-		videoFile = new InputVideoFile("/home/felsamps/Tcc/mvcviewer-tcc/ballroom_0.yuv", 640, 480);
+		videoFile = new InputVideoFile("/home/felsamps/Tcc/mvc-viewer/data/ballroom_0.yuv", 640, 480);
 	}
 
 	@Test
