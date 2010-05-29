@@ -25,6 +25,15 @@ public class TraceFileParser {
 		this.initVideo();
 	}
 
+	public TraceFileParser(CfgReader reader) {
+		this.height = reader.getHeight();
+		this.width = reader.getWidth();
+		this.numViews = reader.getNumViews();
+		this.gopSize = reader.getGopSize();
+		this.initTraceFiles();
+		this.initVideo();
+	}
+
 	private void initTraceFiles() {
 		traceFiles = new ArrayList<InputTraceFile> ();
 		for(String path : traceFilePath) {

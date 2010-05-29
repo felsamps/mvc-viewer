@@ -28,17 +28,31 @@ public class CfgReader {
 			e.printStackTrace();
 		}
 		traceFilePaths = new ArrayList<String> ();
-		
+		videoPaths = new ArrayList<String> ();		
+	}
+
+	public CfgReader(File file) {
+		try {
+			config = file;
+			configScanner = new Scanner(config);
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		traceFilePaths = new ArrayList<String> ();
+		videoPaths = new ArrayList<String> ();		
 	}
 
 	public void read() {
 		this.numViews = configScanner.nextInt();
 		this.gopSize = configScanner.nextInt();
+		configScanner.nextLine();
 		for(int i=0; i<getNumViews(); i++) {
 			getTraceFilePaths().add(configScanner.nextLine());
 		}
 		this.width = configScanner.nextInt();
 		this.height = configScanner.nextInt();
+		configScanner.nextLine();
 		for(int i=0; i<getNumViews(); i++) {
 			getVideoPaths().add(configScanner.nextLine());
 		}
