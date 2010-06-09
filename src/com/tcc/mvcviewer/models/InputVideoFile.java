@@ -25,30 +25,38 @@ public class InputVideoFile extends InputFile {
 		return new Long(totalBytes / bytesPerFrame);
 	}
 
-	/**
-	 * @return the width
-	 */
+	public Byte[][] readYFrame() {
+		Byte[][] yFrame = new Byte[this.height][this.width];
+		for(int idy=0; idy < this.height; idy++) {
+			for(int idx=0; idx < this.width; idx++) {
+				yFrame[idy][idx] = this.readByte();
+			}
+		}
+		return yFrame;
+	}
+
+	public Byte[][] readCFrame() {
+		Byte[][] cFrame = new Byte[this.height/2][this.width/2];
+		for(int idy=0; idy < this.height/2; idy++) {
+			for(int idx=0; idx < this.width/2; idx++) {
+				cFrame[idy][idx] = this.readByte();
+			}
+		}
+		return cFrame;
+	}
+
 	public Integer getWidth() {
 		return width;
 	}
 
-	/**
-	 * @param width the width to set
-	 */
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
 
-	/**
-	 * @return the height
-	 */
 	public Integer getHeight() {
 		return height;
 	}
 
-	/**
-	 * @param height the height to set
-	 */
 	public void setHeight(Integer height) {
 		this.height = height;
 	}

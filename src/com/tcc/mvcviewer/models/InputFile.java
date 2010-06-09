@@ -46,14 +46,14 @@ public abstract class InputFile {
 		}
 	}
 
-	public int readByte() {
+	public Byte readByte() {
 		byte[] b = new byte[1];
-		int returnable = 0;
+		Byte returnable = 0;
 		try {
 			fileStream.read(b);
-			returnable = this.convertToInt(b);
+			returnable = new Byte(b[0]);
 		} catch (IOException ex) {
-			returnable = Integer.MAX_VALUE;
+			ex.printStackTrace();
 		}
 		finally {
 			return returnable;

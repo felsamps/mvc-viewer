@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.tcc.mvcviewer.models;
 
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -23,7 +17,7 @@ public class VideoFileTest {
 	@Before
 	public void before() {
 		try {
-			video = new InputVideoFile("/home/felsamps/Tcc/mvc-viewer/data/bin_gen/binary.dat", 640, 480);
+			video = new InputVideoFile("/home/felsamps/Tcc/jmvc-tcc/bin/ballroom_0.yuv", 640, 480);
 		} catch (FileNotFoundException ex) {
 			//DO NOTHING
 		}
@@ -31,9 +25,14 @@ public class VideoFileTest {
 
 	@Test
 	public void readShortTest() {
-//		System.out.println(new Integer(video.readInt()));
-//		System.out.println(new Integer(video.readByte()));
-//		System.out.println(new Integer(video.readByte()));
+		Byte[][] yFrame, cbFrame, crFrame;
+		assertEquals(new Long(250),video.getNumOfFrames());
+		yFrame = video.readYFrame();
+		cbFrame = video.readCFrame();
+		crFrame = video.readCFrame();
+		assertEquals(480, yFrame.length);
+		assertEquals(cbFrame.length, crFrame.length);
+		assertEquals(240, cbFrame.length);
 	}
 
 }
