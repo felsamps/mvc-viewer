@@ -65,53 +65,30 @@ public class CfgReader {
 		return configScanner.nextLine().split(" ");
 	}
 
-
-
-	/**
-	 * @return the numViews
-	 */
 	public Integer getNumViews() {
 		return numViews;
 	}
 
-	/**
-	 * @return the gopSize
-	 */
 	public Integer getGopSize() {
 		return gopSize;
 	}
 
-	/**
-	 * @return the traceFilePaths
-	 */
 	public List<String> getTraceFilePaths() {
 		return traceFilePaths;
 	}
 
-	/**
-	 * @return the videoPaths
-	 */
 	public List<String> getVideoPaths() {
 		return videoPaths;
 	}
 
-	/**
-	 * @return the width
-	 */
 	public Integer getWidth() {
 		return width;
 	}
 
-	/**
-	 * @return the height
-	 */
 	public Integer getHeight() {
 		return height;
 	}
 
-	/**
-	 * @return the numFrames
-	 */
 	public Integer getNumFrames() {
 		return numFrames;
 	}
