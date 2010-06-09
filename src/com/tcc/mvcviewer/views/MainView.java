@@ -1,7 +1,7 @@
 package com.tcc.mvcviewer.views;
 
 import com.tcc.mvcviewer.controllers.MainController;
-import com.tcc.mvcviewer.models.CfgReader;
+import com.tcc.mvcviewer.models.files.CfgReader;
 import java.io.File;
 import java.util.List;
 import javax.swing.JDialog;

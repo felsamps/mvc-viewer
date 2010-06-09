@@ -1,4 +1,4 @@
-package com.tcc.mvcviewer.models;
+package com.tcc.mvcviewer.models.files;
 
 /**
  *

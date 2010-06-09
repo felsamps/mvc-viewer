@@ -1,5 +1,7 @@
 package com.tcc.mvcviewer.models;
 
+import com.tcc.mvcviewer.models.files.CfgReader;
+import com.tcc.mvcviewer.models.files.InputTraceFile;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.tcc.mvcviewer.controllers;
 
+import com.tcc.mvcviewer.models.files.CfgReader;
 import com.tcc.mvcviewer.models.*;
 import com.tcc.mvcviewer.views.*;
 import java.awt.Component;

@@ -1,4 +1,4 @@
-package com.tcc.mvcviewer.models;
+package com.tcc.mvcviewer.models.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;

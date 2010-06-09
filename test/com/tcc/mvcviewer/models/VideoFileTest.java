@@ -1,5 +1,7 @@
 package com.tcc.mvcviewer.models;
 
+import com.tcc.mvcviewer.models.files.OutputVideoFile;
+import com.tcc.mvcviewer.models.files.InputVideoFile;
 import java.io.FileNotFoundException;
 import org.junit.After;
 import org.junit.Before;

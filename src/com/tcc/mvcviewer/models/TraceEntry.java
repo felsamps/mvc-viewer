@@ -1,5 +1,7 @@
 package com.tcc.mvcviewer.models;
 
+import com.tcc.mvcviewer.models.files.InputTraceFile;
+
 /**
  *
  * @author felsamps
