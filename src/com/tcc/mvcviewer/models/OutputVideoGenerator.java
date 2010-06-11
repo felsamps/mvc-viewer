@@ -13,8 +13,10 @@ public class OutputVideoGenerator {
 	private List<InputVideoFile> originalVideos;
 	private List<OutputVideoFile> modifiedVideos;
 	private Integer numViews, numFrames;
+	private List<RefRect> areas;
 
-	public OutputVideoGenerator(List<String> videoPaths, Integer numViews, Integer numFrames) {
+	public OutputVideoGenerator(List<RefRect> areas, List<String> videoPaths, Integer numViews, Integer numFrames) {
+		this.areas = areas;
 		this.numViews = numViews;
 		this.numFrames = numFrames;
 		initOriginalVideos(videoPaths);
@@ -43,11 +45,13 @@ public class OutputVideoGenerator {
 		//TODO implement this setUp method
 	}
 
-	public void generate() {
-		//TODO implement this main method
-		
+	private void modifyArea(RefRect area) {
+		//TODO think more about it
 	}
 
-
-
+	public void generate() {
+		for(RefRect area : this.areas) {
+			this.modifyArea(area);
+		}
+	}
 }
