@@ -43,7 +43,7 @@ public class CurrentFrame extends Frame {
 
 	void insertTraceEntry(TraceEntry entry, ReferenceFrame refFrame) {
 		MbDataAccess mb = getMb(entry.getxMb(), entry.getyMb());
-		RefRect refRect = entry.getRefRect();
+		AreaRef refRect = entry.getRefRect();
 		mb.addRefRect(entry.getMbType(), refRect);
 		refRect.setFrame(refFrame);
 	}

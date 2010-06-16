@@ -20,16 +20,22 @@ public class MbMode {
 	public static int B4x8					= 10;
 	public static int B4x4					= 11;
 
-	private List<RefRect> list;
+	private List<AreaRef> list;
 
 	public MbMode() {
-		list = new ArrayList<RefRect>();
+		list = new ArrayList<AreaRef>();
 	}
 
-	public void addRefRect(RefRect ref) {
-		list.add(ref);
+	public void addRefRect(AreaRef ref) {
+		getList().add(ref);
 	}
 
-	//TODO implement the getters, the setters and, the RefRect list analysis
+	public List<AreaRef> getList() {
+		return list;
+	}
+
+	public void setList(List<AreaRef> list) {
+		this.list = list;
+	}
 
 }

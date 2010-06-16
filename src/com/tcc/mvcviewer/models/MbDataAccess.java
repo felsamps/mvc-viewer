@@ -1,5 +1,8 @@
 package com.tcc.mvcviewer.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author felsamps
@@ -18,7 +21,7 @@ public class MbDataAccess {
 		}
 	}
 
-	public void addRefRect(int mbType, RefRect ref) {
+	public void addRefRect(int mbType, AreaRef ref) {
 		arrayMbModes[mbType].addRefRect(ref);
 	}
 
@@ -26,36 +29,30 @@ public class MbDataAccess {
 		return arrayMbModes[mbType];
 	}
 
-	public int getRefRectListSize() {
-		return arrayMbModes.length;
+	public List<AreaRef> getAreaRectList(int mbMode) {
+		return arrayMbModes[mbMode].getList();
 	}
 
-	
+	List<AreaRef> getAreaRectList() {
+		List<AreaRef> returnable = new ArrayList<AreaRef> ();
+		for(MbMode mode : arrayMbModes) {
+			returnable.addAll(mode.getList());
+		}
+		return returnable;
+	}
 
-	/**
-	 * @return the mbX
-	 */
 	public Integer getMbX() {
 		return mbX;
 	}
 
-	/**
-	 * @param mbX the mbX to set
-	 */
 	public void setMbX(Integer mbX) {
 		this.mbX = mbX;
 	}
 
-	/**
-	 * @return the mbY
-	 */
 	public Integer getMbY() {
 		return mbY;
 	}
 
-	/**
-	 * @param mbY the mbY to set
-	 */
 	public void setMbY(Integer mbY) {
 		this.mbY = mbY;
 	}

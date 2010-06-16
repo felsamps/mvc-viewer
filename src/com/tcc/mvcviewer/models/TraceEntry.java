@@ -34,8 +34,8 @@ public class TraceEntry {
 		setMbType(getFile().readInt());
 	}
 
-	public RefRect getRefRect() {
-		return new RefRect(xMin, yMin, xMax, yMax);
+	public AreaRef getRefRect() {
+		return new AreaRef(xMin, yMin, xMax, yMax);
 	}
 
 	/**

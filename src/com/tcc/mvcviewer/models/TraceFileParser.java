@@ -64,8 +64,9 @@ public class TraceFileParser {
 		while(! file.finished()) {
 			TraceEntry entry = new TraceEntry(file);
 			CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
-			ReferenceFrame refFrame = video.getReferenceFrame(entry.getCurrView(), entry.getCurrPoc());
+			ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
 			currFrame.insertTraceEntry(entry, refFrame);
+			video.incNumEntries();
 		}	
 	}
 }

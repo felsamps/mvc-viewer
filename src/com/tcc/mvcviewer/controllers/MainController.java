@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -15,6 +17,8 @@ import javax.swing.JOptionPane;
  * @author felsamps
  */
 public class MainController extends ApplicationController {
+	private static String OUTPUT_PATH = "/home/felsamps/Tcc/mvc-viewer/data/output-files/";
+
 	private MainView view;
 	private CfgReader reader;
 	private TraceFileParser parser;
@@ -28,6 +32,8 @@ public class MainController extends ApplicationController {
 	private void showView() {
 		this.view.setVisible(true);
 	}
+
+
 
 	public void handleAbrirCfgButton() {
 		int returnVal = this.view.showFileChooserDialog();
@@ -56,9 +62,53 @@ public class MainController extends ApplicationController {
 						"Error!", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		this.initFields();
 	}
 
 	public void handleAboutButton() {
 		this.view.showAboutBox();
+	}
+
+	public void handleGenerateCurrentButton() {
+		Integer targetView = view.getView();
+		Integer targetFrame = view.getCurrentFrame();
+		Integer targetMbX = view.getMbX();
+		Integer targetMbY = view.getMbY();
+		List<AreaRef> areas = video.getAreaRefs(targetView, targetFrame, targetMbX, targetMbY);
+		view.fillAreaList(areas);
+
+		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
+				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
+				reader.getWidth(), reader.getHeight());
+		generator.generate();
+	}
+
+	private void initFields() {
+		view.initFrameList(this.reader.getNumFrames());
+		view.initViewList(this.reader.getNumViews());
+		view.initMbXList(this.reader.getHeight());
+		view.initMbYList(this.reader.getWidth());
+		view.initFrameRefList(this.reader.getNumFrames());
+		view.initViewRefList(this.reader.getNumViews());
+	}
+
+	private List<String> getNewVideoPaths() {
+		List<String> returnable = new ArrayList<String> ();
+		for(Integer i=0; i<reader.getNumViews(); i++) {
+			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
+		}
+		return returnable;
+	}
+
+	public void handleGenerateReferenceButton() {
+		Integer refFrame = view.getReferenceFrame();
+		Integer refView = view.getReferenceView();
+		String output = view.getOutputFileName();
+		List<AreaRef> areas = video.getAreaRefs(refView, refFrame);
+		view.fillAreaRefList(areas);
+		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
+				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
+				reader.getWidth(), reader.getHeight());
+		generator.generateRefFrame(refView, refFrame, output);
 	}
 }

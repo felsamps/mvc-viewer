@@ -9,14 +9,24 @@ import java.util.List;
  */
 public class ReferenceFrame extends Frame {
 	//FIXME improve Reference Frame members
-	List<RefRect> entries;
+	private List<AreaRef> entries;
 
 	public ReferenceFrame(Integer width, Integer height, Integer poc, Integer view) {
 		super(width, height, poc, view);
-		this.entries = new ArrayList<RefRect>();
+		this.entries = new ArrayList<AreaRef>();
 	}
 
-	void insertRefRect(RefRect aThis) {
-		this.entries.add(aThis);
+	void insertRefRect(AreaRef aThis) {
+		this.getEntries().add(aThis);
 	}
+
+	public List<AreaRef> getEntries() {
+		return entries;
+	}
+
+	public void setEntries(List<AreaRef> entries) {
+		this.entries = entries;
+	}
+
+
 }
