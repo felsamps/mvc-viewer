@@ -41,7 +41,6 @@ public class MainView extends javax.swing.JFrame {
         viewsLabel = new javax.swing.JLabel();
         framesTextField = new javax.swing.JTextField();
         viewsTextField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -93,14 +92,6 @@ public class MainView extends javax.swing.JFrame {
 
         viewsTextField.setEditable(false);
         viewsTextField.setName("viewsTextField"); // NOI18N
-
-        jButton2.setText("Start Parsing");
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -155,7 +146,6 @@ public class MainView extends javax.swing.JFrame {
                             .addComponent(framesTextField)
                             .addComponent(viewsTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                             .addComponent(gopSizeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
-                    .addComponent(jButton2)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -189,9 +179,7 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButton2)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         jPanel2.setName("jPanel2"); // NOI18N
@@ -410,20 +398,16 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-		controller.handleStartParsingButton();
-	}//GEN-LAST:event_jButton2ActionPerformed
 
 	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 		controller.handleAbrirCfgButton();
@@ -452,7 +436,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JTextField framesTextField;
     private javax.swing.JTextField gopSizeTextField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
@@ -504,6 +487,7 @@ public class MainView extends javax.swing.JFrame {
 		this.framesTextField.setText(reader.getNumFrames().toString());
 		this.jTextField1.setText(reader.getWidth().toString() + "x" + reader.getHeight().toString());
 		this.fillTables(reader.getTraceFilePaths(), reader.getVideoPaths());
+		
 	}
 
 	private void fillTables(List<String> traceFilePaths, List<String> videoPaths) {
@@ -545,16 +529,16 @@ public class MainView extends javax.swing.JFrame {
 		}
 	}
 
-	public void initMbXList(Integer height) {
+	public void initMbXList(Integer width) {
 		DefaultComboBoxModel model = (DefaultComboBoxModel) mbXComboBox.getModel();
-		for(Integer i=0; i<height/16; i++) {
+		for(Integer i=0; i<width/16; i++) {
 			model.addElement(i.toString());
 		}
 	}
 
-	public void initMbYList(Integer width) {
+	public void initMbYList(Integer height) {
 		DefaultComboBoxModel model = (DefaultComboBoxModel) mbYComboBox.getModel();
-		for(Integer i=0; i<width/16; i++) {
+		for(Integer i=0; i<height/16; i++) {
 			model.addElement(i.toString());
 		}
 	}

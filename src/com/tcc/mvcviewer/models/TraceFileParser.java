@@ -11,6 +11,8 @@ import java.util.List;
  * @author felsamps
  */
 public class TraceFileParser {
+	private static boolean COND_MASTER = false;
+
 	private List<InputTraceFile> traceFiles;
 	private List<String> traceFilePath;
 	private Integer numViews;
@@ -53,14 +55,14 @@ public class TraceFileParser {
 	}
 
 
-	public Video parser() {
+	public Video parse() {
 		for(InputTraceFile file : traceFiles) {
-			this.parserTraceFile(file);
+			this.parseTraceFile(file);
 		}
 		return video;
 	}
 
-	private void parserTraceFile(InputTraceFile file) {
+	private void parseTraceFile(InputTraceFile file) {
 		while(! file.finished()) {
 			TraceEntry entry = new TraceEntry(file);
 			CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
@@ -69,4 +71,30 @@ public class TraceFileParser {
 			video.incNumEntries();
 		}	
 	}
+
+	private void parseTraceFile(InputTraceFile file, Integer targetFrame, Integer targetMbX, Integer targetMbY) {
+		while(! file.finished()) {
+			TraceEntry entry = new TraceEntry(file);
+			System.err.println(entry.getxMb().toString() + entry.getyMb().toString());
+			boolean temp = COND_MASTER;
+			if(entry.getCurrPoc() == targetFrame && entry.getxMb() == targetMbX && entry.getyMb() == targetMbY) {
+				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
+				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
+				currFrame.insertTraceEntry(entry, refFrame);
+				COND_MASTER = true;
+			}
+			else {
+				COND_MASTER = false;
+			}
+			if(temp == true && COND_MASTER == false) {
+				break;
+			}
+		}
+	}
+
+	public Video parse(Integer targetView, Integer targetFrame, Integer targetMbX, Integer targetMbY) {
+		parseTraceFile(traceFiles.get(targetView), targetFrame, targetMbX, targetMbY);
+		return video;
+	}
+
 }

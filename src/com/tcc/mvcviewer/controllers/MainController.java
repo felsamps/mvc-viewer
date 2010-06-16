@@ -2,6 +2,7 @@ package com.tcc.mvcviewer.controllers;
 
 import com.tcc.mvcviewer.models.files.CfgReader;
 import com.tcc.mvcviewer.models.*;
+import com.tcc.mvcviewer.models.files.InputFile;
 import com.tcc.mvcviewer.views.*;
 import java.awt.Component;
 import java.io.File;
@@ -33,8 +34,6 @@ public class MainController extends ApplicationController {
 		this.view.setVisible(true);
 	}
 
-
-
 	public void handleAbrirCfgButton() {
 		int returnVal = this.view.showFileChooserDialog();
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -42,27 +41,14 @@ public class MainController extends ApplicationController {
 			try {
 				this.reader = new CfgReader(file);
 				this.reader.read();
+				this.parser = new TraceFileParser(reader);
 				this.view.showOpenFile(reader);
+				this.initFields();				
 			}
 			catch(FileNotFoundException ex) {
 				ex.printStackTrace();
 			}
 		}
-	}
-
-	public void handleStartParsingButton() {
-		if(this.reader != null) {
-			try {
-				this.parser = new TraceFileParser(reader);
-				this.video = this.parser.parser();
-				int i=0;
-			}
-			catch(IOException ex) {
-				JOptionPane.showMessageDialog((Component) null, ex.getLocalizedMessage(),
-						"Error!", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		this.initFields();
 	}
 
 	public void handleAboutButton() {
@@ -74,9 +60,9 @@ public class MainController extends ApplicationController {
 		Integer targetFrame = view.getCurrentFrame();
 		Integer targetMbX = view.getMbX();
 		Integer targetMbY = view.getMbY();
+		video = parser.parse(targetView, targetFrame, targetMbX, targetMbY);
 		List<AreaRef> areas = video.getAreaRefs(targetView, targetFrame, targetMbX, targetMbY);
-		view.fillAreaList(areas);
-
+		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
 				reader.getWidth(), reader.getHeight());
@@ -86,8 +72,8 @@ public class MainController extends ApplicationController {
 	private void initFields() {
 		view.initFrameList(this.reader.getNumFrames());
 		view.initViewList(this.reader.getNumViews());
-		view.initMbXList(this.reader.getHeight());
-		view.initMbYList(this.reader.getWidth());
+		view.initMbXList(this.reader.getWidth());
+		view.initMbYList(this.reader.getHeight());
 		view.initFrameRefList(this.reader.getNumFrames());
 		view.initViewRefList(this.reader.getNumViews());
 	}
@@ -104,6 +90,7 @@ public class MainController extends ApplicationController {
 		Integer refFrame = view.getReferenceFrame();
 		Integer refView = view.getReferenceView();
 		String output = view.getOutputFileName();
+		video = parser.parse();
 		List<AreaRef> areas = video.getAreaRefs(refView, refFrame);
 		view.fillAreaRefList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
