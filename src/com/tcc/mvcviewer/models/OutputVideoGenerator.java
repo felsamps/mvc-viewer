@@ -129,7 +129,7 @@ public class OutputVideoGenerator {
 				for(AreaRef area : areas) {
 					this.insertAreaRef(area, frequencies);
 				}
-				this.modifyCRefFrame(crFrame, frequencies);
+				this.modifyCRefFrame(crFrame, frequencies, 0, 255);
 				output.writeYFrame(yFrame);
 				output.writeCFrame(cbFrame);
 				output.writeCFrame(crFrame);
@@ -148,25 +148,40 @@ public class OutputVideoGenerator {
 		}
 	}
 
-	private void modifyYRefFrame(Byte[][] yFrame, int[][] frequencies) {
-		for(int i=0; i<this.height; i++) {
-			for(int j=0; j<this.width; j++) {
-				byte b = (byte) ((frequencies[i][j] / 10) + yFrame[i][j]);
-				yFrame[i][j] = new Byte(b);
-			}
-		}
-	}
-
 	private void modifyCRefFrame(Byte[][] cFrame, int[][] frequencies) {
 		for(int i=0; i<this.height/2; i++) {
 			for(int j=0; j<this.width/2; j++) {
 				int media = (frequencies[i*2][j*2] + frequencies[i*2+1][j*2] + frequencies[i*2][j*2+1] +
 						frequencies[i*2+1][j*2+1]) / 4;
-				byte b = (byte) (media / 6);
+				byte b = (byte) (media / 4);
 				cFrame[i][j] = new Byte(b);
 			}
 		}
 	}
+
+    private void modifyCRefFrame(Byte[][] cFrame, int[][] frequencies, int min, int max) {
+        int maxFreq = this.getMaxFrequency(frequencies);
+		for(int i=0; i<this.height/2; i++) {
+			for(int j=0; j<this.width/2; j++) {
+				int media = (frequencies[i*2][j*2] + frequencies[i*2+1][j*2] + frequencies[i*2][j*2+1] +
+						frequencies[i*2+1][j*2+1]) / 4;
+				int normalizedValue = (255*media) / maxFreq;
+				cFrame[i][j] = (byte) normalizedValue;
+			}
+		}
+    }
+
+    private int getMaxFrequency(int[][] frequencies) {
+		int maxValue = 0;
+        for(int i=0; i<this.height; i++) {
+			for(int j=0; j<this.width; j++) {
+				if(maxValue < frequencies[i][j]) {
+					maxValue = frequencies[i][j];
+				}
+			}
+		}
+		return maxValue;
+    }
 
 	
 }
