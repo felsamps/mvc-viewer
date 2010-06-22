@@ -33,7 +33,7 @@ public class MbDataAccess {
 		return arrayMbModes[mbMode].getList();
 	}
 
-	List<AreaRef> getAreaRectList() {
+	public List<AreaRef> getAreaRectList() {
 		List<AreaRef> returnable = new ArrayList<AreaRef> ();
 		for(MbMode mode : arrayMbModes) {
 			returnable.addAll(mode.getList());

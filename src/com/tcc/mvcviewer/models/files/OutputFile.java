@@ -41,5 +41,4 @@ public class OutputFile {
 			ex.printStackTrace();
 		}
 	}
-
 }

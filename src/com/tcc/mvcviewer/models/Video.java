@@ -46,6 +46,11 @@ public class Video {
 		this.numEntries ++;
 	}
 
+	public List<AreaRef> getAreaRefs(UserMbChoice choice) {
+		CurrentFrame frame = currVistas[choice.getView()][choice.getPoc()];
+		return frame.getMb(choice.getMbX(), choice.getMbY()).getAreaRectList();
+	}
+
 	//TODO handle the choice for different block sizes search
 	public List<AreaRef> getAreaRefs(Integer targetView, Integer targetFrame, Integer targetMbX, Integer targetMbY) {
 		CurrentFrame frame = currVistas[targetView][targetFrame];

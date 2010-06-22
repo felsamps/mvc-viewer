@@ -2,16 +2,12 @@ package com.tcc.mvcviewer.controllers;
 
 import com.tcc.mvcviewer.models.files.CfgReader;
 import com.tcc.mvcviewer.models.*;
-import com.tcc.mvcviewer.models.files.InputFile;
 import com.tcc.mvcviewer.views.*;
-import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,12 +52,12 @@ public class MainController extends ApplicationController {
 	}
 
 	public void handleGenerateCurrentButton() {
-		Integer targetView = view.getView();
-		Integer targetFrame = view.getCurrentFrame();
-		Integer targetMbX = view.getMbX();
-		Integer targetMbY = view.getMbY();
-		video = parser.parse(targetView, targetFrame, targetMbX, targetMbY);
-		List<AreaRef> areas = video.getAreaRefs(targetView, targetFrame, targetMbX, targetMbY);
+		List<UserMbChoice> list = view.getMbChoices();
+		List<AreaRef> areas = new ArrayList<AreaRef>();
+		video = parser.parse();
+		for(UserMbChoice choice : list) {
+			areas.addAll(video.getAreaRefs(choice));
+		}		
 		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
@@ -92,10 +88,16 @@ public class MainController extends ApplicationController {
 		String output = view.getOutputFileName();
 		video = parser.parse();
 		List<AreaRef> areas = video.getAreaRefs(refView, refFrame);
-		view.fillAreaRefList(areas);
+		view.fillAreaList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
 				reader.getWidth(), reader.getHeight());
 		generator.generateRefFrame(refView, refFrame, output);
+	}
+
+	public void handleAddButton() {
+		UserMbChoice choice = new UserMbChoice(view.getMbX(),
+				view.getMbY(), view.getView(), view.getCurrentFrame());
+		view.addMbChoice(choice);
 	}
 }

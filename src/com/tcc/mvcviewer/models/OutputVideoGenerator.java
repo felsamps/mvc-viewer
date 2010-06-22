@@ -108,7 +108,7 @@ public class OutputVideoGenerator {
 				Byte[][] cbFrame = this.originalVideos.get(view).readCFrame();
 				Byte[][] crFrame = this.originalVideos.get(view).readCFrame();
 				for(AreaRef area : list) {
-					this.modifyCbArea(area, cbFrame);
+					this.modifyCbArea(area, crFrame);
 				}
 				this.modifiedVideos.get(view).writeYFrame(yFrame);
 				this.modifiedVideos.get(view).writeCFrame(cbFrame);
