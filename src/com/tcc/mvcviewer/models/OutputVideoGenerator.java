@@ -16,10 +16,12 @@ public class OutputVideoGenerator {
 	private Integer numViews, numFrames;
 	private List<AreaRef> areas;
 	private Integer height, width;
+	private boolean grid;
 
 	public OutputVideoGenerator(List<AreaRef> areas, List<String> videoPaths,
 			List<String> newVideoPaths, Integer numViews, Integer numFrames,
-			Integer width, Integer height) {
+			Integer width, Integer height, boolean grid) {
+		this.grid = grid;
 		this.width = width;
 		this.height = height;
 		this.areas = areas;
@@ -92,6 +94,9 @@ public class OutputVideoGenerator {
 				if( !list.isEmpty() ) {
 					this.modifyCFrame(crFrame, frequencies);
 				}
+				if( this.grid ) {
+					this.insertGrid(yFrame);
+				}
 				this.modifiedVideos.get(view).writeYFrame(yFrame);
 				this.modifiedVideos.get(view).writeCFrame(cbFrame);
 				this.modifiedVideos.get(view).writeCFrame(crFrame);
@@ -112,6 +117,9 @@ public class OutputVideoGenerator {
 					this.insertAreaRef(area, frequencies);
 				}
 				this.modifyCFrame(crFrame, frequencies, 0, 255);
+				if( this.grid ) {
+					this.insertGrid(yFrame);
+				}
 				output.writeYFrame(yFrame);
 				output.writeCFrame(cbFrame);
 				output.writeCFrame(crFrame);
@@ -157,7 +165,7 @@ public class OutputVideoGenerator {
 		for(int i=0; i<this.height/2; i++) {
 			for(int j=0; j<this.width/2; j++) {
 				if( frequencies[i*2][j*2] ) {
-					cFrame[i][j] = (byte) 255;
+					cFrame[i][j] = (byte) 200;
 				}
 			}
 		}
@@ -174,6 +182,21 @@ public class OutputVideoGenerator {
 		}
 		return maxValue;
     }
+
+	private void insertGrid(Byte[][] yFrame) {
+		//horizontal
+		for(int i=15; i<this.height; i+=16) {
+			for(int j=0; j<this.width; j++) {
+				yFrame[i][j] = (byte) 0;
+			}
+		}
+		//vertical
+		for(int i=15; i<this.width; i+=16) {
+			for(int j=0; j<this.height; j++) {
+				yFrame[j][i] = (byte) 0;
+			}
+		}
+	}
 
 	
 }

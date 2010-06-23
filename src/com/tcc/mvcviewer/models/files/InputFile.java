@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * @author felsamps
  */
 public abstract class InputFile {
-	File file;
+	private File file;
 	FileInputStream fileStream;
 
 	public InputFile() {
@@ -19,7 +19,7 @@ public abstract class InputFile {
 
 	public InputFile(String filePath) throws FileNotFoundException {
 		file = new File(filePath);
-		fileStream = new FileInputStream(file);
+		fileStream = new FileInputStream(getFile());
 	}
 	public int unsignedByteToInt(byte b) {
 		return (int) b & 0xFF;
@@ -74,7 +74,7 @@ public abstract class InputFile {
 	public double tell() {
 		double returnable = 0;
 		try {
-			double total = file.length();
+			double total = getFile().length();
 			double current = fileStream.available();
 			returnable = (1 - (current / total)) * 100;
 		} catch (IOException ex) {
@@ -83,6 +83,20 @@ public abstract class InputFile {
 		finally {
 			return returnable;
 		}
+	}
+
+	/**
+	 * @return the file
+	 */
+	public File getFile() {
+		return file;
+	}
+
+	/**
+	 * @param file the file to set
+	 */
+	public void setFile(File file) {
+		this.file = file;
 	}
 	
 }

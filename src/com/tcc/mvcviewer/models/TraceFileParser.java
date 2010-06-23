@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 
 /**
  *
@@ -56,6 +55,7 @@ public class TraceFileParser {
 
 	public Video parse(Integer refView, Integer refPoc) {
 		for(InputTraceFile file : traceFiles) {
+			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
 			this.parseTraceFile(file, refView, refPoc);
 		}
 		return video;
@@ -63,6 +63,7 @@ public class TraceFileParser {
 
 	public Video parse() {
 		for(InputTraceFile file : traceFiles) {
+			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
 			this.parseTraceFile(file);
 		}
 		return video;
@@ -70,6 +71,7 @@ public class TraceFileParser {
 
 	public Video parse(List<UserMbChoice> list) {
 		for(InputTraceFile file : traceFiles) {
+			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
 			this.parseTraceFile(file, list);
 		}
 		return video;

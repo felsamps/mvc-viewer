@@ -71,14 +71,14 @@ public class MainController extends ApplicationController {
 	public void handleGenerateCurrentButton() {
 		List<UserMbChoice> list = view.getMbChoices();
 		List<AreaRef> areas = new ArrayList<AreaRef>();
-		video = parser.parse();
+		video = parser.parse(list);
 		for(UserMbChoice choice : list) {
 			areas.addAll(video.getAreaRefs(choice));
 		}		
 		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
-				reader.getWidth(), reader.getHeight());
+				reader.getWidth(), reader.getHeight(), view.isGridSelected());
 		generator.generate();
 	}
 
@@ -92,7 +92,7 @@ public class MainController extends ApplicationController {
 		view.fillAreaList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
-				reader.getWidth(), reader.getHeight());
+				reader.getWidth(), reader.getHeight(), view.isGridSelected());
 		generator.generateRefFrame(refView, refFrame, output);
 	}
 

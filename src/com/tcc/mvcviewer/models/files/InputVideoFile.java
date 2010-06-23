@@ -21,7 +21,7 @@ public class InputVideoFile extends InputFile {
 
 	public Long getNumOfFrames() {
 		int  bytesPerFrame = (int) (getHeight() * getWidth() * 1.5);
-		Long totalBytes = file.length();
+		Long totalBytes = getFile().length();
 		return new Long(totalBytes / bytesPerFrame);
 	}
 
