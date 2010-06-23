@@ -14,6 +14,7 @@ public class CfgReader {
 	private List<String> videoPaths;
 	private Integer width, height;
 	private Integer numFrames;
+	private Integer searchRange;
 	
 
 	public CfgReader(String path) throws FileNotFoundException {
@@ -48,6 +49,9 @@ public class CfgReader {
 			}
 			if(command.equals("HEIGHT")) {
 				this.height = Integer.parseInt(line[2]);
+			}
+			if(command.equals("SEARCH_RANGE")) {
+				this.searchRange = Integer.parseInt(line[2]);
 			}
 			if(command.equals("TRACE_FILES_BEGIN")) {
 				for(int i=0; i<this.numViews; i++) {
