@@ -85,6 +85,7 @@ public class TraceFileParser {
 	private void parseTraceFile(InputTraceFile file) {
 		while(! file.finished()) {
 			TraceEntry entry = new TraceEntry(file);
+			this.showInfoLog(file.tell());
 			CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
 			ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
 			currFrame.insertTraceEntry(entry, refFrame);
@@ -109,8 +110,9 @@ public class TraceFileParser {
 			TraceEntry entry = new TraceEntry(file);
 			UserMbChoice condition = new UserMbChoice(entry.getxMb(),
 					entry.getyMb(), entry.getCurrView(), entry.getCurrPoc());
+			this.showInfoLog(file.tell());
 			if(list.contains(condition)) {
-				this.showInfoLog(file.tell());
+				
 				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
 				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
 				currFrame.insertTraceEntry(entry, refFrame);
