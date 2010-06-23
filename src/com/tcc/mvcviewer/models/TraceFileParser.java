@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
  * @author felsamps
  */
 public class TraceFileParser {
+	private static Integer LIMIT=0;
+
 	private List<InputTraceFile> traceFiles;
 	private List<String> traceFilePath;
 	private Integer numViews;
@@ -56,6 +58,7 @@ public class TraceFileParser {
 	public Video parse(Integer refView, Integer refPoc) {
 		for(InputTraceFile file : traceFiles) {
 			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
+			resetLogCounter();
 			this.parseTraceFile(file, refView, refPoc);
 		}
 		return video;
@@ -64,6 +67,7 @@ public class TraceFileParser {
 	public Video parse() {
 		for(InputTraceFile file : traceFiles) {
 			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
+			resetLogCounter();
 			this.parseTraceFile(file);
 		}
 		return video;
@@ -72,6 +76,7 @@ public class TraceFileParser {
 	public Video parse(List<UserMbChoice> list) {
 		for(InputTraceFile file : traceFiles) {
 			Logger.getRootLogger().info("Parsing the trace file " + file.getFile().getName());
+			resetLogCounter();
 			this.parseTraceFile(file, list);
 		}
 		return video;
@@ -114,37 +119,14 @@ public class TraceFileParser {
 		}	
 	}
 
-	private void showInfoLog(double percent) {
-		if( percent/10 == 1.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 2.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 3.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 4.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 5.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 6.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 7.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 8.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 9.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
-		if( percent/10 == 0.0 ) {
-			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
-		}
+	private static void resetLogCounter() {
+		LIMIT = 0;
 	}
 
+	private void showInfoLog(double percent) {
+		if( percent > LIMIT ) {
+			Logger.getRootLogger().info(LIMIT + "% lido...");
+			LIMIT += 10;
+		}
+	}
 }
