@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -68,6 +69,20 @@ public abstract class InputFile {
 			ex.printStackTrace();
 		}
 		return returnable;
+	}
+
+	public double tell() {
+		double returnable = 0;
+		try {
+			double total = file.length();
+			double current = fileStream.available();
+			returnable = (1 - (current / total)) * 100;
+		} catch (IOException ex) {
+			Logger.getRootLogger().info("Fudeu");
+		}
+		finally {
+			return returnable;
+		}
 	}
 	
 }

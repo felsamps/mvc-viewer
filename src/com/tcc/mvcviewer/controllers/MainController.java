@@ -30,6 +30,23 @@ public class MainController extends ApplicationController {
 		this.view.setVisible(true);
 	}
 
+	private void initFields() {
+		view.initFrameList(this.reader.getNumFrames());
+		view.initViewList(this.reader.getNumViews());
+		view.initMbXList(this.reader.getWidth());
+		view.initMbYList(this.reader.getHeight());
+		view.initFrameRefList(this.reader.getNumFrames());
+		view.initViewRefList(this.reader.getNumViews());
+	}
+
+	private List<String> getNewVideoPaths() {
+		List<String> returnable = new ArrayList<String> ();
+		for(Integer i=0; i<reader.getNumViews(); i++) {
+			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
+		}
+		return returnable;
+	}
+
 	public void handleAbrirCfgButton() {
 		int returnVal = this.view.showFileChooserDialog();
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -65,28 +82,12 @@ public class MainController extends ApplicationController {
 		generator.generate();
 	}
 
-	private void initFields() {
-		view.initFrameList(this.reader.getNumFrames());
-		view.initViewList(this.reader.getNumViews());
-		view.initMbXList(this.reader.getWidth());
-		view.initMbYList(this.reader.getHeight());
-		view.initFrameRefList(this.reader.getNumFrames());
-		view.initViewRefList(this.reader.getNumViews());
-	}
-
-	private List<String> getNewVideoPaths() {
-		List<String> returnable = new ArrayList<String> ();
-		for(Integer i=0; i<reader.getNumViews(); i++) {
-			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
-		}
-		return returnable;
-	}
 
 	public void handleGenerateReferenceButton() {
 		Integer refFrame = view.getReferenceFrame();
 		Integer refView = view.getReferenceView();
 		String output = view.getOutputFileName();
-		video = parser.parse();
+		video = parser.parse(refView, refFrame);
 		List<AreaRef> areas = video.getAreaRefs(refView, refFrame);
 		view.fillAreaList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),

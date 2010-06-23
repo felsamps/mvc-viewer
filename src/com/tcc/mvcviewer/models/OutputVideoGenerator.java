@@ -66,28 +66,6 @@ public class OutputVideoGenerator {
 			area.setyMax(this.height-1);
 	}
 
-	private void modifyYArea(AreaRef area, Byte[][] yFrame) {
-		byte b = 50;
-		this.adjustArea(area);
-		for(int i=area.getxMin(); i<area.getxMax(); i++) {
-			for(int y=area.getyMin(); y<area.getyMax(); y++) {
-				byte sample = (byte) (yFrame[y][i].byteValue() + b);
-				yFrame[y][i] = new Byte(sample);
-			}
-		}
-	}
-
-	private void modifyCbArea(AreaRef area, Byte[][] cFrame) {
-		byte b = 50;
-		this.adjustArea(area);
-		for(int i=area.getxMin()/2; i<area.getxMax()/2; i++) {
-			for(int y=area.getyMin()/2; y<area.getyMax()/2; y++) {
-				byte sample = (byte) (cFrame[y][i].byteValue() + b);
-				cFrame[y][i] = new Byte(sample);
-			}
-		}
-	}
-
 	private List<AreaRef> filterAreaRefList(Integer view, Integer poc) {
 		List<AreaRef> returnable = new ArrayList<AreaRef> ();
 		for(AreaRef area : this.areas) {
@@ -101,6 +79,7 @@ public class OutputVideoGenerator {
 
 	public void generate() {
 		for(int view=0; view<this.numViews; view++) {
+			boolean[][] frequencies = new boolean[this.height][this.width];
 			for(int frame=1; frame <= this.numFrames; frame++) {
 				List<AreaRef> list = this.filterAreaRefList(view, frame);
 				//TODO refactoring of it!
@@ -108,7 +87,10 @@ public class OutputVideoGenerator {
 				Byte[][] cbFrame = this.originalVideos.get(view).readCFrame();
 				Byte[][] crFrame = this.originalVideos.get(view).readCFrame();
 				for(AreaRef area : list) {
-					this.modifyCbArea(area, crFrame);
+					this.insertArea(area, frequencies);
+				}
+				if( !list.isEmpty() ) {
+					this.modifyCFrame(crFrame, frequencies);
 				}
 				this.modifiedVideos.get(view).writeYFrame(yFrame);
 				this.modifiedVideos.get(view).writeCFrame(cbFrame);
@@ -129,7 +111,7 @@ public class OutputVideoGenerator {
 				for(AreaRef area : areas) {
 					this.insertAreaRef(area, frequencies);
 				}
-				this.modifyCRefFrame(crFrame, frequencies, 0, 255);
+				this.modifyCFrame(crFrame, frequencies, 0, 255);
 				output.writeYFrame(yFrame);
 				output.writeCFrame(cbFrame);
 				output.writeCFrame(crFrame);
@@ -148,18 +130,17 @@ public class OutputVideoGenerator {
 		}
 	}
 
-	private void modifyCRefFrame(Byte[][] cFrame, int[][] frequencies) {
-		for(int i=0; i<this.height/2; i++) {
-			for(int j=0; j<this.width/2; j++) {
-				int media = (frequencies[i*2][j*2] + frequencies[i*2+1][j*2] + frequencies[i*2][j*2+1] +
-						frequencies[i*2+1][j*2+1]) / 4;
-				byte b = (byte) (media / 4);
-				cFrame[i][j] = new Byte(b);
+
+	private void insertArea(AreaRef area, boolean[][] frequencies) {
+		this.adjustArea(area);
+		for(int i=area.getxMin(); i<area.getxMax(); i++) {
+			for(int j=area.getyMin(); j<area.getyMax(); j++) {
+				frequencies[j][i] = true;
 			}
 		}
 	}
 
-    private void modifyCRefFrame(Byte[][] cFrame, int[][] frequencies, int min, int max) {
+    private void modifyCFrame(Byte[][] cFrame, int[][] frequencies, int min, int max) {
         int maxFreq = this.getMaxFrequency(frequencies);
 		for(int i=0; i<this.height/2; i++) {
 			for(int j=0; j<this.width/2; j++) {
@@ -170,6 +151,17 @@ public class OutputVideoGenerator {
 			}
 		}
     }
+
+
+	private void modifyCFrame(Byte[][] cFrame, boolean[][] frequencies) {
+		for(int i=0; i<this.height/2; i++) {
+			for(int j=0; j<this.width/2; j++) {
+				if( frequencies[i*2][j*2] ) {
+					cFrame[i][j] = (byte) 255;
+				}
+			}
+		}
+	}
 
     private int getMaxFrequency(int[][] frequencies) {
 		int maxValue = 0;

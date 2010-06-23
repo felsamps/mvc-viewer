@@ -5,14 +5,14 @@ import com.tcc.mvcviewer.models.files.InputTraceFile;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 /**
  *
  * @author felsamps
  */
 public class TraceFileParser {
-	private static boolean COND_MASTER = false;
-
 	private List<InputTraceFile> traceFiles;
 	private List<String> traceFilePath;
 	private Integer numViews;
@@ -54,10 +54,23 @@ public class TraceFileParser {
 		video = new Video(numViews, numFrames, width, height);
 	}
 
+	public Video parse(Integer refView, Integer refPoc) {
+		for(InputTraceFile file : traceFiles) {
+			this.parseTraceFile(file, refView, refPoc);
+		}
+		return video;
+	}
 
 	public Video parse() {
 		for(InputTraceFile file : traceFiles) {
 			this.parseTraceFile(file);
+		}
+		return video;
+	}
+
+	public Video parse(List<UserMbChoice> list) {
+		for(InputTraceFile file : traceFiles) {
+			this.parseTraceFile(file, list);
 		}
 		return video;
 	}
@@ -72,29 +85,64 @@ public class TraceFileParser {
 		}	
 	}
 
-	private void parseTraceFile(InputTraceFile file, Integer targetFrame, Integer targetMbX, Integer targetMbY) {
+	private void parseTraceFile(InputTraceFile file, Integer refView, Integer refPoc) {
 		while(! file.finished()) {
 			TraceEntry entry = new TraceEntry(file);
-			System.err.println(entry.getxMb().toString() + entry.getyMb().toString());
-			boolean temp = COND_MASTER;
-			if(entry.getCurrPoc() == targetFrame && entry.getxMb() == targetMbX && entry.getyMb() == targetMbY) {
+			this.showInfoLog(file.tell());
+			if(entry.getRefPoc() == refPoc && entry.getRefView() == refView) {
 				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
 				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
 				currFrame.insertTraceEntry(entry, refFrame);
-				COND_MASTER = true;
-			}
-			else {
-				COND_MASTER = false;
-			}
-			if(temp == true && COND_MASTER == false) {
-				break;
 			}
 		}
 	}
 
-	public Video parse(Integer targetView, Integer targetFrame, Integer targetMbX, Integer targetMbY) {
-		parseTraceFile(traceFiles.get(targetView), targetFrame, targetMbX, targetMbY);
-		return video;
+	private void parseTraceFile(InputTraceFile file, List<UserMbChoice> list) {
+		while(! file.finished()) {
+			TraceEntry entry = new TraceEntry(file);
+			UserMbChoice condition = new UserMbChoice(entry.getxMb(),
+					entry.getyMb(), entry.getCurrView(), entry.getCurrPoc());
+			if(list.contains(condition)) {
+				this.showInfoLog(file.tell());
+				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
+				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
+				currFrame.insertTraceEntry(entry, refFrame);
+				video.incNumEntries();
+			}
+		}	
+	}
+
+	private void showInfoLog(double percent) {
+		if( percent/10 == 1.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 2.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 3.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 4.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 5.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 6.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 7.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 8.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 9.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
+		if( percent/10 == 0.0 ) {
+			Logger.getRootLogger().info("Current position in the tracing file: " + percent);
+		}
 	}
 
 }

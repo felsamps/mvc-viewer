@@ -54,5 +54,23 @@ public class UserMbChoice {
 		return "MB (" + mbX.toString() + "," + mbY.toString() + ") View " + view.toString()
 				+ " Frame " + poc.toString();
 	}
+
+	@Override
+	@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+	public boolean equals(Object obj) {
+		UserMbChoice u = (UserMbChoice) obj;
+		return this.mbX.equals(u.mbX) && this.mbY.equals(u.mbY) &&
+				this.poc.equals(u.poc) && this.view.equals(u.view);
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 67 * hash + (this.mbX != null ? this.mbX.hashCode() : 0);
+		hash = 67 * hash + (this.mbY != null ? this.mbY.hashCode() : 0);
+		hash = 67 * hash + (this.view != null ? this.view.hashCode() : 0);
+		hash = 67 * hash + (this.poc != null ? this.poc.hashCode() : 0);
+		return hash;
+	}
 	
 }
