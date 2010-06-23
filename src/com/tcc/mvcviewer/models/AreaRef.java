@@ -28,6 +28,11 @@ public class AreaRef {
 		this.frame.insertRefRect(this);
 	}
 
+	public void setFrameBiPred(ReferenceFrame frame) {
+		this.frame = frame;
+		this.frame.insertRefRectBiPred(this);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		AreaRef ref = (AreaRef) obj;

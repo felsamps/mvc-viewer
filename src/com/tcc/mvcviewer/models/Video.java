@@ -61,4 +61,10 @@ public class Video {
 		ReferenceFrame frame = refVistas[refView][refFrame];
 		return frame.getEntries();
 	}
+
+	public List<AreaRef> getAreaRefsBiPred(UserMbChoice choice) {
+		CurrentFrame frame = currVistas[choice.getView()][choice.getPoc()];
+		return frame.getMb(choice.getMbX(), choice.getMbY()).getAreaRectListBiPred();
+	}
+	
 }
