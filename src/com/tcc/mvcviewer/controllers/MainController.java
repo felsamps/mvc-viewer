@@ -73,7 +73,7 @@ public class MainController extends ApplicationController {
 		List<AreaRef> areas = new ArrayList<AreaRef>();
 		video = parser.parse(list);
 		for(UserMbChoice choice : list) {
-			areas.addAll(video.getAreaRefsBiPred(choice));
+			areas.addAll(video.getAreaRefs(choice));
 		}		
 		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
