@@ -70,10 +70,10 @@ public class MainController extends ApplicationController {
 
 	public void handleGenerateCurrentButton() {
 		List<UserMbChoice> list = view.getMbChoices();
-		List<AreaRef> areas = new ArrayList<AreaRef>();
+		List<List<AreaRef>> areas = new ArrayList<List<AreaRef>>();
 		video = parser.parse(list);
 		for(UserMbChoice choice : list) {
-			areas.addAll(video.getAreaRefs(choice));
+			areas.add(video.getAreaRefs(choice));
 		}		
 		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
@@ -88,7 +88,8 @@ public class MainController extends ApplicationController {
 		Integer refView = view.getReferenceView();
 		String output = view.getOutputFileName();
 		video = parser.parse(refView, refFrame);
-		List<AreaRef> areas = video.getAreaRefs(refView, refFrame);
+		List<List<AreaRef>> areas = new ArrayList<List<AreaRef>>();
+		areas.add(video.getAreaRefs(refView, refFrame));
 		view.fillAreaList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),

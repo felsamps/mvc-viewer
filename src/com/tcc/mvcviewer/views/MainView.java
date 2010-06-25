@@ -612,10 +612,12 @@ public class MainView extends javax.swing.JFrame {
 		return Integer.parseInt((String) this.mbYComboBox.getSelectedItem());
 	}
 
-	public void fillAreaList(List<AreaRef> areas) {
+	public void fillAreaList(List<List<AreaRef>> listAreas) {
 		DefaultListModel model = (DefaultListModel) jList2.getModel();
-		for(AreaRef area : areas) {
-			model.addElement(area);
+		for(List<AreaRef> areas : listAreas) {
+			for(AreaRef area : areas) {
+				model.addElement(area);
+			}
 		}
 	}
 
