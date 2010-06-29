@@ -126,7 +126,7 @@ public class OutputVideoGenerator {
 				for(AreaRef area : listAreas.get(0)) {
 					this.insertAreaRef(area, frequencies);
 				}
-				this.modifyCFrame(crFrame, frequencies, 255);
+				this.modifyCFrame(crFrame, frequencies);
 				if( this.grid ) {
 					this.insertGrid(yFrame);
 				}
@@ -184,6 +184,20 @@ public class OutputVideoGenerator {
 						frequencies[i*2+1][j*2+1]) / 4;
 				if(media > 0) {
 					int normalizedValue = media * ((max-crMedia)/maxFreq) + crMedia;
+					cFrame[i][j] = (byte) normalizedValue;
+				}
+			}
+		}
+    }
+
+	private void modifyCFrame(Byte[][] cFrame, int[][] frequencies) {
+        int maxFreq = this.getMaxFrequency(frequencies);
+		for(int i=0; i<this.height/2; i++) {
+			for(int j=0; j<this.width/2; j++) {
+				int media = (frequencies[i*2][j*2] + frequencies[i*2+1][j*2] + frequencies[i*2][j*2+1] +
+						frequencies[i*2+1][j*2+1]) / 4;
+				if(media > 0) {
+					int normalizedValue = (media * 255) / maxFreq;
 					cFrame[i][j] = (byte) normalizedValue;
 				}
 			}
