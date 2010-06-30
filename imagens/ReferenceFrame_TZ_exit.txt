@@ -1,0 +1,37 @@
+#########################################################################################################
+#########################################################################################################
+MVC STANDARD - MULTI-VIEW VIDEO CODING
+DESCRIPTION: TRACING OF THE MEMORY ACCESS PERFORMING BY THE ME/DE EXECUTION USING THE JMVC 8.0 REFERENCE
+SOFTWARE
+AUTHOR: FELIPE MARTIN SAMPAIO
+#########################################################################################################
+#########################################################################################################
+
+* OUTPUT IMAGE DESCRIPTION *
+
+Image File Name: ReferenceFrame_TZ_exit.jpg
+Log File Name: <nenhum>
+
+Resolution:	
+	* 640x480 pixels (VGA)
+
+Configurations:
+	Sequence Name:
+		* exit
+	Number of Views: 3
+	Number of Frames: 5
+	GOP size: 4
+	SearchArea: +- 96
+	Search algorithm:
+		* TZ Search
+	Frame Range: 1 - 5
+	
+Image Type:
+	* Reference Frame
+
+##If Reference Frame
+Target View: 0
+Target Frame: 3
+
+Observations:
+	

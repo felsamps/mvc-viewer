@@ -1,0 +1,52 @@
+#########################################################################################################
+#########################################################################################################
+MVC STANDARD - MULTI-VIEW VIDEO CODING
+DESCRIPTION: TRACING OF THE MEMORY ACCESS PERFORMING BY THE ME/DE EXECUTION USING THE JMVC 8.0 REFERENCE
+SOFTWARE
+AUTHOR: FELIPE MARTIN SAMPAIO
+#########################################################################################################
+#########################################################################################################
+
+* OUTPUT IMAGE DESCRIPTION *
+
+Image File Name: .jpg
+Log File Name: .log
+
+Resolution:	
+	* 640x480 pixels (VGA)
+	* 1024x768 pixels (SVGA)
+
+Configurations:
+	Sequence Name:
+		* ballroom
+		* exit
+		* 
+	Number of Views: 3
+	Number of Frames: 5
+	GOP size: 4
+	SearchArea: +- 96
+	Search algorithm:
+		* FullSearch
+		* TZ Search
+		* 
+	Frame Range: - 
+	
+Image Type:
+	* Reference Frame
+	*	Current Frame
+	* 
+
+##If Reference Frame
+Target View: 
+Target Frame: 
+
+##If Current Frame
+MB List:
+	#MB Entry Template: <View> <Frame> <MBx> <MBy>
+	
+
+Target View:
+Target Frame:
+
+Observations:
+	
