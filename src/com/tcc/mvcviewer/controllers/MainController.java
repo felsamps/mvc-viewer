@@ -95,6 +95,9 @@ public class MainController extends ApplicationController {
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
 				reader.getWidth(), reader.getHeight(), view.isGridSelected());
 		generator.generateRefFrame(refView, refFrame, output);
+		if( view.isCurrentMbTracingSelected() ) {
+			generator.generateCurrentMBTracing(refView, refFrame, view.getMinX(), view.getMinY(), view.getMaxX(), view.getMaxY());
+		}
 	}
 
 	public void handleAddButton() {

@@ -19,7 +19,7 @@ public class CurrentFrame extends Frame {
 	private void initMbMatix() {
 		for (int i = 0; i < mbWidth; i++) {
 			for (int j = 0; j < mbHeight; j++) {
-				mbMatrix[i][j] = new MbDataAccess(i,j);
+				mbMatrix[i][j] = new MbDataAccess(i,j,this);
 			}
 		}
 	}

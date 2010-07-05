@@ -1,5 +1,7 @@
 package com.tcc.mvcviewer.models;
 
+import java.awt.Rectangle;
+
 /**
  *
  * @author felsamps
@@ -88,6 +90,12 @@ public class AreaRef {
 
 	public void setMbAtual(MbDataAccess mbAtual) {
 		this.mbAtual = mbAtual;
+	}
+
+	public boolean intersecs(Integer minX, Integer minY, Integer maxX, Integer maxY) {
+		Rectangle right = new Rectangle(this.xMin, this.yMin, this.xMax-this.xMin, this.yMax-this.yMin);
+		Rectangle left = new Rectangle(minX, minY, maxX-minX, maxY-minY);
+		return left.intersects(right);
 	}
 
 

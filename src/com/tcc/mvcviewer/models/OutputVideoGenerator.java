@@ -5,6 +5,7 @@ import com.tcc.mvcviewer.models.files.InputVideoFile;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -135,7 +136,57 @@ public class OutputVideoGenerator {
 				output.writeCFrame(crFrame);
 				output.closeAndSave();
 			}
+		}
+	}
 
+
+	public void generateCurrentMBTracing(Integer refView, Integer refFrame, Integer minX, Integer minY, Integer maxX, Integer maxY) {
+		List<MbDataAccess> mbList = new ArrayList<MbDataAccess>();
+		for(AreaRef area: listAreas.get(0)) {
+			if( area.intersecs(minX, minY, maxX, maxY) ) {
+				if( !mbList.contains(area.getMbAtual()) ) {
+					mbList.add(area.getMbAtual());
+				}
+			}
+		}
+		for(int view=0; view<this.numViews; view++) {
+			for(int frame=1; frame<=this.numFrames; frame++) {
+				Byte[][] yFrame = this.getOriginalLumaFrame(view);
+				Byte[][] cbFrame = this.getOriginalChromaFrame(view);
+				Byte[][] crFrame = this.getOriginalChromaFrame(view);
+				List<MbDataAccess> list = this.filterMbList(mbList, view, frame);
+				for(MbDataAccess mb : list) {
+					this.markMbCFrame(crFrame, mb);
+				}
+				if( this.grid ) {
+					this.insertGrid(yFrame);
+				}
+				this.modifiedVideos.get(view).writeYFrame(yFrame);
+				this.modifiedVideos.get(view).writeCFrame(cbFrame);
+				this.modifiedVideos.get(view).writeCFrame(crFrame);	
+			}
+			this.modifiedVideos.get(view).closeAndSave();
+		}
+	}
+
+
+	private List<MbDataAccess> filterMbList(List<MbDataAccess> mbList, int view, int frame) {
+		List<MbDataAccess> returnable = new ArrayList<MbDataAccess>();
+		for(MbDataAccess mb : mbList) {
+			if( mb.getFrame().getView().equals(view) && mb.getFrame().getPoc().equals(frame) ) {
+				returnable.add(mb);
+			}
+		}
+		return returnable;
+	}
+
+	private void markMbCFrame(Byte[][] crFrame, MbDataAccess mb) {
+		int offsetX = mb.getMbX()*4;
+		int offsetY = mb.getMbY()*4;
+		for(int x=0; x<4; x++) {
+			for(int y=0; y<4; y++) {
+				crFrame[x+offsetX][y+offsetY] = new Byte((byte) 200);
+			}
 		}
 	}
 
