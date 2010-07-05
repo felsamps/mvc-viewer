@@ -8,15 +8,17 @@ public class AreaRef {
 	private Integer xMin,yMin;
 	private Integer xMax,yMax;
 	private ReferenceFrame frame;
+	private MbDataAccess mbAtual;
 
 	public AreaRef() {
 	}
 
-	public AreaRef(Integer xMin, Integer yMin, Integer xMax, Integer yMax) {
+	public AreaRef(Integer xMin, Integer yMin, Integer xMax, Integer yMax, MbDataAccess mbAtual) {
 		this.xMin = xMin;
 		this.yMin = yMin;
 		this.xMax = xMax;
 		this.yMax = yMax;
+		this.mbAtual = mbAtual;
 	}
 
 	public ReferenceFrame getFrame() {
@@ -78,6 +80,14 @@ public class AreaRef {
 
 	public void setyMax(Integer yMax) {
 		this.yMax = yMax;
+	}
+
+	public MbDataAccess getMbAtual() {
+		return mbAtual;
+	}
+
+	public void setMbAtual(MbDataAccess mbAtual) {
+		this.mbAtual = mbAtual;
 	}
 
 

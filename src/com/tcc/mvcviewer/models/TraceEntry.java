@@ -36,8 +36,8 @@ public class TraceEntry {
 		setBiPrediction(getFile().readByte());
 	}
 
-	public AreaRef getRefRect() {
-		return new AreaRef(xMin, yMin, xMax, yMax);
+	public AreaRef getRefRect(MbDataAccess mb) {
+		return new AreaRef(xMin, yMin, xMax, yMax, mb);
 	}
 
 	public InputTraceFile getFile() {

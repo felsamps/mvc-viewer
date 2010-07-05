@@ -112,7 +112,6 @@ public class TraceFileParser {
 					entry.getyMb(), entry.getCurrView(), entry.getCurrPoc());
 			this.showInfoLog(file.tell());
 			if(list.contains(condition)) {
-				
 				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
 				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
 				currFrame.insertTraceEntry(entry, refFrame);
