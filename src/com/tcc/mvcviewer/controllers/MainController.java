@@ -20,6 +20,8 @@ public class MainController extends ApplicationController {
 	private CfgReader reader;
 	private TraceFileParser parser;
 	private Video video;
+
+	ModeController modeController;
 	
 	public MainController() {
 		this.view = new MainView(this);
@@ -104,5 +106,9 @@ public class MainController extends ApplicationController {
 		UserMbChoice choice = new UserMbChoice(view.getMbX(),
 				view.getMbY(), view.getView(), view.getCurrentFrame());
 		view.addMbChoice(choice);
+	}
+
+	public void handleModeViewBotton() {
+		modeController = ModeController.getInstance();
 	}
 }
