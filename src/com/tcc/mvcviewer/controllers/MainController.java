@@ -39,6 +39,7 @@ public class MainController extends ApplicationController {
 		view.initMbYList(this.reader.getHeight());
 		view.initFrameRefList(this.reader.getNumFrames());
 		view.initViewRefList(this.reader.getNumViews());
+		view.initCacheFields(this.reader.getNumViews(), this.reader.getNumFrames());
 	}
 
 	private List<String> getNewVideoPaths() {
@@ -110,5 +111,16 @@ public class MainController extends ApplicationController {
 
 	public void handleModeViewBotton() {
 		modeController = ModeController.getInstance();
+	}
+
+	public void handleGenerateCacheButton() {
+		Integer refFrame = view.getRefFrameCache();
+		Integer refView = view.getRefViewCache();
+		Integer currFrame = view.getCurrFrameCache();
+		Integer currView = view.getCurrViewCache();
+		String fileName = "/home/felsamps/Tcc/cache-mvc/mb_access.txt";
+		video = parser.parse(refView, refFrame, currView, currFrame);
+		OutputCacheGenerator generator = new OutputCacheGenerator(fileName, video, refView, refFrame, currView, currFrame);
+		generator.generate();
 	}
 }

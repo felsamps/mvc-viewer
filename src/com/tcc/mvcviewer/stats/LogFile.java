@@ -15,7 +15,7 @@ public class LogFile {
 	private static Integer numEntries;
 	
 	static {
-		//variables initialization
+		//variable initialization
 		numEntries = 0;
 		try {
 			logFile = new FileWriter("/home/Tcc/mvc-viewer/data/output-files/logFile.log");

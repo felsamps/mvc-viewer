@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,6 +33,14 @@ public class OutputFile {
 		}
 		catch(IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void writeInteger(Integer i) {
+		try {
+			fileStream.write(i);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 

@@ -82,6 +82,12 @@ public class TraceFileParser {
 		return video;
 	}
 
+
+	public Video parse(Integer refView, Integer refFrame, Integer currView, Integer currFrame) {
+		this.parseTraceFile(this.traceFiles.get(currView), refView, refFrame, currFrame);
+		return video;
+	}
+
 	private void parseTraceFile(InputTraceFile file) {
 		while(! file.finished()) {
 			TraceEntry entry = new TraceEntry(file);
@@ -119,6 +125,18 @@ public class TraceFileParser {
 			}
 		}	
 	}
+	
+	private void parseTraceFile(InputTraceFile file, Integer refView, Integer refPoc, Integer currPoc) {
+		while(! file.finished()) {
+			TraceEntry entry = new TraceEntry(file);
+			this.showInfoLog(file.tell());
+			if(entry.getRefPoc() == refPoc && entry.getRefView() == refView && entry.getCurrPoc() == currPoc) {
+				CurrentFrame currFrame = video.getCurrentFrame(entry.getCurrView(), entry.getCurrPoc());
+				ReferenceFrame refFrame = video.getReferenceFrame(entry.getRefView(), entry.getRefPoc());
+				currFrame.insertTraceEntry(entry, refFrame);
+			}
+		}
+	}
 
 	private static void resetLogCounter() {
 		LIMIT = 0;
@@ -130,4 +148,5 @@ public class TraceFileParser {
 			LIMIT += 10;
 		}
 	}
+
 }
