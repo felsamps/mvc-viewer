@@ -1,6 +1,8 @@
 package com.tcc.mvcviewer.views;
 
 import com.tcc.mvcviewer.controllers.ModeController;
+import com.tcc.mvcviewer.utils.Resolution;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 
@@ -188,6 +190,13 @@ public class ModeView extends javax.swing.JFrame {
 
 	public void showVideoFileName(String name) {
 		this.videoFileTextField.setText(name);
+	}
+
+	public void fillResolutionList(List<Resolution> supportedResolutions) {
+		DefaultComboBoxModel model = (DefaultComboBoxModel) this.resolutionComboBox.getModel();
+		for( Resolution r : supportedResolutions) {
+			model.addElement(r);
+		}
 	}
 
 }

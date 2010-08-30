@@ -1,6 +1,9 @@
 package com.tcc.mvcviewer.controllers;
 
+import com.tcc.mvcviewer.utils.Resolution;
 import com.tcc.mvcviewer.views.ModeView;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 
 /**
@@ -10,6 +13,7 @@ import javax.swing.JFileChooser;
 public class ModeController {
 	private static ModeController instance;
 	private ModeView view;
+	private List<Resolution> supportedResolutions;
 
 	public static ModeController getInstance() {
 		if(instance == null) {
@@ -24,6 +28,7 @@ public class ModeController {
 
 	public ModeController() {
 		view = new ModeView(this);
+		initSupportedResolutions();
 		this.showView();
 	}
 
@@ -43,5 +48,11 @@ public class ModeController {
 			String videoFile = this.view.getSelectedFile();
 			this.view.showVideoFileName(videoFile);
 		}
+	}
+
+	private void initSupportedResolutions() {
+		this.supportedResolutions = new ArrayList<Resolution>();
+		this.supportedResolutions.add(new Resolution(640, 480, "VGA"));
+		this.view.fillResolutionList(this.supportedResolutions);
 	}
 }
