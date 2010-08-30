@@ -31,24 +31,26 @@
                       <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton4" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="1" min="-2" pref="72" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jTextField3" alignment="0" pref="268" max="32767" attributes="0"/>
+                          <Component id="outputFileTextField" alignment="0" pref="268" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="1">
-                              <Component id="jComboBox1" min="-2" pref="149" max="-2" attributes="0"/>
+                              <Component id="resolutionComboBox" min="-2" pref="149" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinner1" pref="107" max="32767" attributes="0"/>
+                              <Component id="numberOfFramesSpinner" pref="107" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jTextField2" alignment="0" pref="268" max="32767" attributes="0"/>
-                          <Component id="jTextField1" alignment="0" pref="268" max="32767" attributes="1"/>
+                          <Component id="videoFileTextField" alignment="0" pref="268" max="32767" attributes="0"/>
+                          <Component id="modeFileTextField" alignment="0" pref="268" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jButton3" max="32767" attributes="1"/>
-                          <Component id="jButton2" alignment="1" pref="69" max="32767" attributes="1"/>
+                          <Component id="openVideoFileButton" max="32767" attributes="1"/>
+                          <Component id="openModeFileButton" alignment="1" pref="69" max="32767" attributes="1"/>
                       </Group>
+                  </Group>
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="closeButton" alignment="1" max="32767" attributes="1"/>
+                      <Component id="generateButton" alignment="1" max="32767" attributes="1"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,13 +62,13 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="modeFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="openModeFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="videoFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="openVideoFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -75,35 +77,35 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="resolutionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="numberOfFramesSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+              <Component id="outputFileTextField" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="16" max="32767" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="62" max="-2" attributes="0"/>
+              <Component id="generateButton" min="-2" pref="62" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="closeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="closeButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Close"/>
-        <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="closeButton" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="resolutionComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new DefaultComboBoxModel()" type="code"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="jComboBox1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="resolutionComboBox" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -112,40 +114,40 @@
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="modeFileTextField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modes File..."/>
-        <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="modeFileTextField" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="videoFileTextField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Video File..."/>
-        <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="videoFileTextField" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="openModeFileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Open"/>
-        <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="openModeFileButton" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="openVideoFileButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Open"/>
-        <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="openVideoFileButton" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="generateButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generate"/>
-        <Property name="name" type="java.lang.String" value="jButton4" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="generateButton" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="outputFileTextField">
       <Properties>
         <Property name="text" type="java.lang.String" value="/home/felsamps/Tcc/mvc-viewer/data/output-files/outModes.yuv"/>
-        <Property name="name" type="java.lang.String" value="jTextField3" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="outputFileTextField" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -160,9 +162,9 @@
         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner1">
+    <Component class="javax.swing.JSpinner" name="numberOfFramesSpinner">
       <Properties>
-        <Property name="name" type="java.lang.String" value="jSpinner1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="numberOfFramesSpinner" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>
