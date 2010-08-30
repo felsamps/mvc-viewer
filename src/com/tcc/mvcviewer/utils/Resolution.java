@@ -20,6 +20,24 @@ public class Resolution {
 	}
 
 	public String toString() {
-		return w + "x" + h + " (" + comment + ")";
+		return getW() + "x" + getH() + " (" + comment + ")";
 	}
+
+	public Integer getW() {
+		return w;
+	}
+
+	public void setW(Integer w) {
+		this.w = w;
+	}
+
+	public Integer getH() {
+		return h;
+	}
+
+	public void setH(Integer h) {
+		this.h = h;
+	}
+
+	
 }

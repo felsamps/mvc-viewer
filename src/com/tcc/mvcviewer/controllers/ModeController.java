@@ -1,5 +1,6 @@
 package com.tcc.mvcviewer.controllers;
 
+import com.tcc.mvcviewer.models.OutputModesGenerator;
 import com.tcc.mvcviewer.utils.Resolution;
 import com.tcc.mvcviewer.views.ModeView;
 import java.util.ArrayList;
@@ -54,5 +55,15 @@ public class ModeController {
 		this.supportedResolutions = new ArrayList<Resolution>();
 		this.supportedResolutions.add(new Resolution(640, 480, "VGA"));
 		this.view.fillResolutionList(this.supportedResolutions);
+	}
+
+	public void handleGenerateButton() {
+		OutputModesGenerator generator = new OutputModesGenerator(
+				this.view.getModesFilePath(),
+				this.view.getVideoFilePath(),
+				this.view.getOutFilePath(),
+				this.view.getSelectedResolution());
+
+		generator.parseModesFile(1);
 	}
 }

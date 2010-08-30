@@ -78,6 +78,11 @@ public class ModeView extends javax.swing.JFrame {
 
         generateButton.setText("Generate");
         generateButton.setName("generateButton"); // NOI18N
+        generateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateButtonActionPerformed(evt);
+            }
+        });
 
         outputFileTextField.setText("/home/felsamps/Tcc/mvc-viewer/data/output-files/outModes.yuv");
         outputFileTextField.setName("outputFileTextField"); // NOI18N
@@ -161,6 +166,10 @@ public class ModeView extends javax.swing.JFrame {
 		this.controller.handleOpenVideoFileButton();
 	}//GEN-LAST:event_openVideoFileButtonActionPerformed
 
+	private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
+		this.controller.handleGenerateButton();
+	}//GEN-LAST:event_generateButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JButton generateButton;
@@ -197,6 +206,22 @@ public class ModeView extends javax.swing.JFrame {
 		for( Resolution r : supportedResolutions) {
 			model.addElement(r);
 		}
+	}
+
+	public String getModesFilePath() {
+		return modeFileTextField.getText();
+	}
+
+	public String getVideoFilePath() {
+		return videoFileTextField.getText();
+	}
+
+	public String getOutFilePath() {
+		return outputFileTextField.getText();
+	}
+
+	public Resolution getSelectedResolution() {
+		return (Resolution) this.resolutionComboBox.getSelectedItem();
 	}
 
 }
