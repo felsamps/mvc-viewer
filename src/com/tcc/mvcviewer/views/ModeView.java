@@ -2,6 +2,7 @@ package com.tcc.mvcviewer.views;
 
 import com.tcc.mvcviewer.controllers.ModeController;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -9,10 +10,12 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ModeView extends javax.swing.JFrame {
 	ModeController controller;
+	JFileChooser fileChooser;
 
     /** Creates new form ModeView */
     public ModeView(ModeController controller) {
 		this.controller = controller;
+		this.fileChooser = new JFileChooser();
         initComponents();
     }
 
@@ -57,9 +60,19 @@ public class ModeView extends javax.swing.JFrame {
 
         openModeFileButton.setText("Open");
         openModeFileButton.setName("openModeFileButton"); // NOI18N
+        openModeFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openModeFileButtonActionPerformed(evt);
+            }
+        });
 
         openVideoFileButton.setText("Open");
         openVideoFileButton.setName("openVideoFileButton"); // NOI18N
+        openVideoFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openVideoFileButtonActionPerformed(evt);
+            }
+        });
 
         generateButton.setText("Generate");
         generateButton.setName("generateButton"); // NOI18N
@@ -138,6 +151,14 @@ public class ModeView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	private void openModeFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openModeFileButtonActionPerformed
+		this.controller.handleOpenModeFileButton();
+	}//GEN-LAST:event_openModeFileButtonActionPerformed
+
+	private void openVideoFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openVideoFileButtonActionPerformed
+		this.controller.handleOpenVideoFileButton();
+	}//GEN-LAST:event_openVideoFileButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JButton generateButton;
@@ -152,5 +173,21 @@ public class ModeView extends javax.swing.JFrame {
     private javax.swing.JComboBox resolutionComboBox;
     private javax.swing.JTextField videoFileTextField;
     // End of variables declaration//GEN-END:variables
+
+	public int showFileChooser() {
+		return this.fileChooser.showOpenDialog(ModeView.this);
+	}
+
+	public String getSelectedFile() {
+		return this.fileChooser.getSelectedFile().getAbsolutePath();
+	}
+
+	public void showModeFileName(String name) {
+		this.modeFileTextField.setText(name);
+	}
+
+	public void showVideoFileName(String name) {
+		this.videoFileTextField.setText(name);
+	}
 
 }
