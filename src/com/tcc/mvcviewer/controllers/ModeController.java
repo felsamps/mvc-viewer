@@ -64,6 +64,6 @@ public class ModeController {
 				this.view.getOutFilePath(),
 				this.view.getSelectedResolution());
 
-		generator.parseModesFile(1);
+		generator.parseModesFile(this.view.getTargetFrame(), this.view.isColorEnabled());
 	}
 }

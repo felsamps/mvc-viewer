@@ -39,7 +39,7 @@ public class OutputModesGenerator {
 		this.grid = new boolean[r.getW()][r.getH()];
 	}
 
-	public void parseModesFile(Integer targetFrame) {
+	public void parseModesFile(Integer targetFrame, boolean colorEnabled) {
 		for (int i = 1; i < targetFrame; i++) {
 			this.inVideo.readYFrame();
 			this.inVideo.readCFrame();
@@ -56,7 +56,7 @@ public class OutputModesGenerator {
 			}
 		}
 
-		this.insertGridAndColors();
+		this.insertGridAndColors(colorEnabled);
 		this.outVideo.writeYFrame(this.y);
 		this.outVideo.writeCFrame(this.cb);
 		this.outVideo.writeCFrame(this.cr);
@@ -120,7 +120,7 @@ public class OutputModesGenerator {
 		}
 	}
 
-	private void insertGridAndColors() {
+	private void insertGridAndColors(boolean colorEnabled) {
 		for(int x=0; x<this.r.getW(); x++) {
 			for(int y=0; y<this.r.getH(); y++) {
 				int mbX = x/16;
@@ -129,17 +129,18 @@ public class OutputModesGenerator {
 					this.y[y][x] = (byte) 255;
 				}
 				else {
-					if( modes[mbX][mbY] == SKIP ) {
-						//this.cb[y/2][x/2] = (byte) (this.cb[y/2][x/2].intValue() + ((255 - this.cb[y/2][x/2].intValue()) * 0.25));
-						this.cb[y/2][x/2] = (byte) 120;
-						this.cr[y/2][x/2] = (byte) 120;
-					}
-					if( modes[mbX][mbY] == INTRA ) {
-						this.cb[y/2][x/2] = (byte) 150;
+					if( colorEnabled ) {
+						if( modes[mbX][mbY] == SKIP ) {
+							this.cb[y/2][x/2] = (byte) 120;
+							this.cr[y/2][x/2] = (byte) 120;
+						}
+						if( modes[mbX][mbY] == INTRA ) {
+							this.cb[y/2][x/2] = (byte) 150;
 
-					}
-					if( modes[mbX][mbY] == INTER ) {
-						this.cr[y/2][x/2] = (byte) 150;
+						}
+						if( modes[mbX][mbY] == INTER ) {
+							this.cr[y/2][x/2] = (byte) 150;
+						}
 					}
 				}
 			}
