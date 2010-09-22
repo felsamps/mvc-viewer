@@ -2,6 +2,7 @@ package com.tcc.mvcviewer.models;
 
 import com.tcc.mvcviewer.models.files.OutputVideoFile;
 import com.tcc.mvcviewer.models.files.InputVideoFile;
+import com.tcc.mvcviewer.stats.LogFile;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,7 @@ public class OutputVideoGenerator {
 				output.closeAndSave();
 			}
 		}
+		LogFile.insertSampleAccess(frequencies);
 	}
 
 
@@ -267,28 +269,28 @@ public class OutputVideoGenerator {
 	}
 
     private int getMaxFrequency(int[][] frequencies) {
-		int maxValue = 0;
-        for(int i=0; i<this.height; i++) {
-			for(int j=0; j<this.width; j++) {
-				if(maxValue < frequencies[i][j]) {
-					maxValue = frequencies[i][j];
-				}
-			}
+	int maxValue = 0;
+	for(int i=0; i<this.height; i++) {
+	    for(int j=0; j<this.width; j++) {
+		if(maxValue < frequencies[i][j]) {
+		    maxValue = frequencies[i][j];
 		}
-		return maxValue;
+	    }
+	}
+	return maxValue;
     }
 
 	private void insertGrid(Byte[][] yFrame) {
 		//horizontal
 		for(int i=15; i<this.height; i+=16) {
 			for(int j=0; j<this.width; j++) {
-				yFrame[i][j] = (byte) 0;
+				yFrame[i][j] = (byte) 255;
 			}
 		}
 		//vertical
 		for(int i=15; i<this.width; i+=16) {
 			for(int j=0; j<this.height; j++) {
-				yFrame[j][i] = (byte) 0;
+				yFrame[j][i] = (byte) 255;
 			}
 		}
 	}

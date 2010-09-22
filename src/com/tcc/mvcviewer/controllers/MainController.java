@@ -2,6 +2,7 @@ package com.tcc.mvcviewer.controllers;
 
 import com.tcc.mvcviewer.models.files.CfgReader;
 import com.tcc.mvcviewer.models.*;
+import com.tcc.mvcviewer.stats.LogFile;
 import com.tcc.mvcviewer.views.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,7 +60,8 @@ public class MainController extends ApplicationController {
 				this.reader.read();
 				this.parser = new TraceFileParser(reader);
 				this.view.showOpenFile(reader);
-				this.initFields();				
+				this.initFields();
+				LogFile.init(reader.getNumViews(), reader.getNumFrames(), reader.getGopSize(), reader.getWidth(), reader.getHeight());
 			}
 			catch(FileNotFoundException ex) {
 				ex.printStackTrace();
@@ -101,6 +103,7 @@ public class MainController extends ApplicationController {
 		if( view.isCurrentMbTracingSelected() ) {
 			generator.generateCurrentMBTracing(refView, refFrame, view.getMinX(), view.getMinY(), view.getMaxX(), view.getMaxY());
 		}
+		LogFile.report();
 	}
 
 	public void handleAddButton() {
