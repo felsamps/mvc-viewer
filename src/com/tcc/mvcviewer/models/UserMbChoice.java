@@ -17,6 +17,13 @@ public class UserMbChoice {
 		this.poc = poc;
 	}
 
+	public UserMbChoice(String[] mbLine) {
+		this.mbX = Integer.parseInt(mbLine[0]);
+		this.mbY = Integer.parseInt(mbLine[1]);
+		this.view = Integer.parseInt(mbLine[2]);
+		this.poc = Integer.parseInt(mbLine[3]);
+	}
+
 	public Integer getMbX() {
 		return mbX;
 	}

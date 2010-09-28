@@ -1,6 +1,7 @@
 package com.tcc.mvcviewer.app;
 
 import com.tcc.mvcviewer.controllers.MainController;
+import com.tcc.mvcviewer.models.PromptHandler;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -40,6 +41,16 @@ public class MVCViewerApp extends SingleFrameApplication {
 	 * @param args
 	 */
     public static void main(String[] args) {
-        launch(MVCViewerApp.class, args);
+		PromptHandler prompt = null;
+		if( args.length != 0 ) {
+			if( args[0].equals("--command") ) {
+				prompt = new PromptHandler(args[1]);
+				prompt.run();	
+			}
+		}
+		else {
+			launch(MVCViewerApp.class, args);
+		}
+        
     }
 }

@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CfgReader {
-	private File config;
-	private Scanner configScanner;
+public class CfgReader extends FileReader {
 	private Integer numViews, gopSize;
 	private List<String> traceFilePaths;
 	private List<String> videoPaths;
@@ -18,21 +16,20 @@ public class CfgReader {
 	
 
 	public CfgReader(String path) throws FileNotFoundException {
-		config = new File(path);
-		configScanner = new Scanner(config);
+		super(path);
 		traceFilePaths = new ArrayList<String> ();
 		videoPaths = new ArrayList<String> ();		
 	}
 
 	public CfgReader(File file) throws FileNotFoundException {
-		config = file;
-		configScanner = new Scanner(config);
+		super(file);
 		traceFilePaths = new ArrayList<String> ();
 		videoPaths = new ArrayList<String> ();		
 	}
 
+	@Override
 	public void read() {
-		while( configScanner.hasNext() ) {
+		while( !this.finished() ) {
 			String[] line = this.parseLine();
 			String command = line[0];
 			if(command.equals("GOP_SIZE")) {
@@ -55,18 +52,15 @@ public class CfgReader {
 			}
 			if(command.equals("TRACE_FILES_BEGIN")) {
 				for(int i=0; i<this.numViews; i++) {
-					this.traceFilePaths.add(this.configScanner.nextLine());
+					this.traceFilePaths.add(this.nextLine());
 				}
 			}
 			if(command.equals("VIDEO_FILES_BEGIN")) {
 				for(int i=0; i<this.numViews; i++) {
-					this.videoPaths.add(this.configScanner.nextLine());
+					this.videoPaths.add(this.nextLine());
 				}
 			}
 		}
-	}
-	private String[] parseLine() {
-		return configScanner.nextLine().split(" ");
 	}
 
 	public Integer getNumViews() {
