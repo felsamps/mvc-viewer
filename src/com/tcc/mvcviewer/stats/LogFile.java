@@ -60,7 +60,7 @@ public class LogFile {
 		if (acc > mostAccessed) {
 			mostAccessed = acc;
 		}
-		if (acc < lessAccessed) {
+		if (acc < lessAccessed && acc > 0) {
 			lessAccessed = acc;
 		}
 
