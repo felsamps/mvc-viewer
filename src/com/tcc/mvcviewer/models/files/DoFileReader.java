@@ -45,9 +45,9 @@ public class DoFileReader extends FileReader {
 				setNumOfMbs(Integer.parseInt(line[2]));
 			}
 			if(command.equals("INIT_MB")) {
-				while(numOfMbs-- == 0) {
+				for(int i=0; i<numOfMbs; i++) {
 					String[] mb = this.parseLine();
-					getListMb().add(new UserMbChoice(mb));
+					listMb.add(new UserMbChoice(mb));
 				}
 			}
 			if(command.equals("OUTPUT_VIDEO")) {

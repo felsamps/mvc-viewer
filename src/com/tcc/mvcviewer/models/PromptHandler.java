@@ -46,7 +46,16 @@ public class PromptHandler {
 	}
 
 	private void runCurrentMBMode() {
-		//TODO implement it
+		video = parser.parse(doReader.getListMb());
+		List<List<AreaRef>> areas = new ArrayList<List<AreaRef>>();
+		List<UserMbChoice> list = this.doReader.getListMb();
+		for(UserMbChoice choice : list) {
+			areas.add(video.getAreaRefs(choice));
+		}
+		OutputVideoGenerator generator = new OutputVideoGenerator(areas, cfgReader.getVideoPaths(),
+				getNewVideoPaths(), cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getWidth(),
+				cfgReader.getHeight(), true);
+		generator.generate();		
 	}
 
 	private List<String> getNewVideoPaths() {
