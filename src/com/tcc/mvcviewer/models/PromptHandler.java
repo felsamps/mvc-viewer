@@ -55,7 +55,8 @@ public class PromptHandler {
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, cfgReader.getVideoPaths(),
 				getNewVideoPaths(), cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getWidth(),
 				cfgReader.getHeight(), true);
-		generator.generate();		
+		generator.generate();
+		LogFile.reportPredictionStructure(video);
 	}
 
 	private List<String> getNewVideoPaths() {
@@ -75,6 +76,7 @@ public class PromptHandler {
 				cfgReader.getHeight(), true);
 		generator.generateRefFrame(doReader.getTargetView(), doReader.getTargetFrame(), doReader.getOutputVideo());
 		LogFile.report();
+		LogFile.reportPredictionStructure(video);
 	}
 
 }

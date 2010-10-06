@@ -1,8 +1,12 @@
 package com.tcc.mvcviewer.stats;
 
+import com.tcc.mvcviewer.models.CurrentFrame;
+import com.tcc.mvcviewer.models.ReferenceFrame;
+import com.tcc.mvcviewer.models.Video;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -72,6 +76,23 @@ public class LogFile {
 
 	}
 
+	public static void reportPredictionStructure(Video video) {
+		for(Integer v=0; v<views; v++) {
+			System.out.println("View " + v.toString());
+			for(Integer f=1; f<=frames; f++) {
+				
+				ReferenceFrame frame = video.getReferenceFrame(v, f);
+				List<CurrentFrame> list = frame.getDependencies();
+				if( list.size() != 0 ) {
+					System.out.println("Frame " + f.toString());
+					for(CurrentFrame curr : list) {
+						System.out.println("(" + curr.getView() + "," + curr.getPoc() + ")");
+					}
+				}
+			}
+		}
+	}
+
 	public static void report() {
 		String saida = "";
 		LogFile.calculateStats();
@@ -81,7 +102,6 @@ public class LogFile {
 		saida += "Most Accessed Sample:\t" + mostAccessed.toString() + "\n";
 		saida += "Less Accessed Sample:\t" + lessAccessed.toString() + "\n";
 		System.out.println(saida);
-
 	}
 
 	public static void insertSampleAccess(int[][] frequencies) {
