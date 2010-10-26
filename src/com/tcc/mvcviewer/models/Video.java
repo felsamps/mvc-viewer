@@ -7,10 +7,10 @@ import java.util.List;
  * @author felsamps
  */
 public class Video {
-	public CurrentFrame[][] currVistas;
-	public ReferenceFrame[][] refVistas;
-	public Integer width, height;
-	public Integer numEntries;
+	private CurrentFrame[][] currVistas;
+	private ReferenceFrame[][] refVistas;
+	private Integer width, height;
+	private Integer numEntries;
 
 	public Video(Integer views, Integer numFrames, Integer width, Integer height) {
 		initCurrentFrames(views, numFrames);
