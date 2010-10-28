@@ -56,7 +56,7 @@ public class PromptHandler {
 				getNewVideoPaths(), cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getWidth(),
 				cfgReader.getHeight(), true);
 		generator.generate();
-		LogFile.reportPredictionStructure(video);
+		//LogFile.reportPredictionStructure(video);
 	}
 
 	private List<String> getNewVideoPaths() {

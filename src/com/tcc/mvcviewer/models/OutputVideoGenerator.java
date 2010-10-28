@@ -88,7 +88,8 @@ public class OutputVideoGenerator {
 
 	public void generate() {
 		for(int view=0; view<this.numViews; view++) {
-			int[][] iFreq = new int[this.height][this.width];
+			int[][] ibFreq = new int[this.height][this.width];
+			int[][] irFreq = new int[this.height][this.width];
 			for(int frame=1; frame <= this.numFrames; frame++) {
 				List<List<AreaRef>> list = this.filterAreaRefList(view, frame);
 				//TODO refactoring of it!
@@ -97,13 +98,21 @@ public class OutputVideoGenerator {
 				Byte[][] crFrame = this.getOriginalChromaFrame(view);
 				for(List<AreaRef> areas : list) {
 					boolean[][] bFreq = new boolean[this.height][this.width];
+					boolean[][] rFreq = new boolean[this.height][this.width];
 					for(AreaRef area : areas) {
-						this.insertArea(area, bFreq);
+						if(area.isRefinement()) {
+							this.insertArea(area, bFreq);
+						}
+						else {
+							this.insertArea(area, rFreq);
+						}							
 					}
-					this.refreshIFreq(bFreq, iFreq);
+					this.refreshIFreq(bFreq, ibFreq);
+					this.refreshIFreq(rFreq, irFreq);
 				}
 				if( !list.isEmpty() ) {
-					this.modifyCFrame(crFrame, iFreq, 255);
+					this.modifyCFrame(cbFrame, ibFreq, 255);
+					this.modifyCFrame(crFrame, irFreq, 255);
 				}
 				if( this.grid ) {
 					this.insertGrid(yFrame);
@@ -157,7 +166,7 @@ public class OutputVideoGenerator {
 				Byte[][] crFrame = this.getOriginalChromaFrame(view);
 				List<MbDataAccess> list = this.filterMbList(mbList, view, frame);
 				for(MbDataAccess mb : list) {
-					this.markMbCFrame(crFrame, mb);
+					this.markMbCFrame(cbFrame, mb);
 				}
 				if( this.grid ) {
 					this.insertGrid(yFrame);

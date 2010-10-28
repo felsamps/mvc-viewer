@@ -11,16 +11,18 @@ public class AreaRef {
 	private Integer xMax,yMax;
 	private ReferenceFrame frame;
 	private MbDataAccess mbAtual;
+	private boolean refinement;
 
 	public AreaRef() {
 	}
 
-	public AreaRef(Integer xMin, Integer yMin, Integer xMax, Integer yMax, MbDataAccess mbAtual) {
+	public AreaRef(Integer xMin, Integer yMin, Integer xMax, Integer yMax, MbDataAccess mbAtual, boolean refinement) {
 		this.xMin = xMin;
 		this.yMin = yMin;
 		this.xMax = xMax;
 		this.yMax = yMax;
 		this.mbAtual = mbAtual;
+		this.refinement = refinement;
 	}
 
 	public ReferenceFrame getFrame() {
@@ -96,6 +98,10 @@ public class AreaRef {
 		Rectangle right = new Rectangle(this.xMin, this.yMin, this.xMax-this.xMin, this.yMax-this.yMin);
 		Rectangle left = new Rectangle(minX, minY, maxX-minX, maxY-minY);
 		return left.intersects(right);
+	}
+	
+	public boolean isRefinement() {
+		return refinement;
 	}
 
 

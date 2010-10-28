@@ -15,6 +15,7 @@ public class TraceEntry {
 	private Integer currView, currPoc;
 	private Integer mbType;
 	private boolean biPrediction;
+	private boolean refinement;
 
 	public TraceEntry(InputTraceFile file) {
 		this.file = file;
@@ -34,10 +35,11 @@ public class TraceEntry {
 		setCurrView(getFile().readInt());
 		setMbType(getFile().readInt());
 		setBiPrediction(getFile().readByte());
+		setRefinement(getFile().readByte());
 	}
 
 	public AreaRef getRefRect(MbDataAccess mb) {
-		return new AreaRef(xMin, yMin, xMax, yMax, mb);
+		return new AreaRef(xMin, yMin, xMax, yMax, mb, refinement);
 	}
 
 	public InputTraceFile getFile() {
@@ -146,6 +148,12 @@ public class TraceEntry {
 
 	public void setBiPrediction(boolean biPrediction) {
 		this.biPrediction = biPrediction;
+	}
+	public boolean isRefinement() {
+		return refinement;
+	}
+	public void setRefinement(Byte readByte) {
+		this.refinement = (((char) readByte.byteValue()) == 'R');
 	}
 
 }
