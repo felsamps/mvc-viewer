@@ -322,7 +322,6 @@ public class OutputVideoGenerator {
 		int minY = (y-searchRange < 0) ? 0 : y-searchRange;
 		int maxX = (x+searchRange+16 >= width) ? width-1 : x+searchRange+16;
 		int maxY = (y+searchRange+16 >= width) ? width-1 : y+searchRange+16;
-
 		//horizontel lines
 		for(int i=minX; i<maxX; i++) {
 			yFrame[minY][i] = (byte) 255;
