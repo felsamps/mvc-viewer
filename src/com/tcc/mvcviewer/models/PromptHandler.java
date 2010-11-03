@@ -12,8 +12,8 @@ import java.util.List;
  * @author felsamps
  */
 public class PromptHandler {
-	private static String OUTPUT_PATH = "/home/felsamps/Tcc/mvc-viewer/data/output-files/";
 
+	private static String OUTPUT_PATH = "/home/felsamps/Tcc/mvc-viewer/data/output-files/";
 	DoFileReader doReader;
 	CfgReader cfgReader;
 	Video video;
@@ -28,19 +28,17 @@ public class PromptHandler {
 			parser = new TraceFileParser(cfgReader);
 			LogFile.init(cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getGopSize(),
 					cfgReader.getWidth(), cfgReader.getHeight());
-		}
-		catch(FileNotFoundException ex) {
+		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		}
 	}
 
 	public void run() {
-		
+
 		int mode = doReader.getMode();
-		if(mode == 0) {
+		if (mode == 0) {
 			this.runCurrentMBMode();
-		}
-		else {
+		} else {
 			this.runReferenceFrameMode();
 		}
 	}
@@ -49,19 +47,19 @@ public class PromptHandler {
 		video = parser.parse(doReader.getListMb());
 		List<List<AreaRef>> areas = new ArrayList<List<AreaRef>>();
 		List<UserMbChoice> list = this.doReader.getListMb();
-		for(UserMbChoice choice : list) {
+		for (UserMbChoice choice : list) {
 			areas.add(video.getAreaRefs(choice));
 		}
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, cfgReader.getVideoPaths(),
 				getNewVideoPaths(), cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getWidth(),
-				cfgReader.getHeight(), true);
+				cfgReader.getHeight(), false, true);
 		generator.generate();
 		//LogFile.reportPredictionStructure(video);
 	}
 
 	private List<String> getNewVideoPaths() {
-		List<String> returnable = new ArrayList<String> ();
-		for(Integer i=0; i<cfgReader.getNumViews(); i++) {
+		List<String> returnable = new ArrayList<String>();
+		for (Integer i = 0; i < cfgReader.getNumViews(); i++) {
 			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
 		}
 		return returnable;
@@ -71,12 +69,11 @@ public class PromptHandler {
 		video = parser.parse(doReader.getTargetView(), doReader.getTargetFrame());
 		List<List<AreaRef>> areas = new ArrayList<List<AreaRef>>();
 		areas.add(video.getAreaRefs(doReader.getTargetView(), doReader.getTargetFrame()));
-		OutputVideoGenerator generator = new OutputVideoGenerator(areas, cfgReader.getVideoPaths(), 
+		OutputVideoGenerator generator = new OutputVideoGenerator(areas, cfgReader.getVideoPaths(),
 				getNewVideoPaths(), cfgReader.getNumViews(), cfgReader.getNumFrames(), cfgReader.getWidth(),
-				cfgReader.getHeight(), true);
+				cfgReader.getHeight(), true, true);
 		generator.generateRefFrame(doReader.getTargetView(), doReader.getTargetFrame(), doReader.getOutputVideo());
 		LogFile.report();
 		LogFile.reportPredictionStructure(video);
 	}
-
 }

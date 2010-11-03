@@ -83,7 +83,7 @@ public class MainController extends ApplicationController {
 		view.fillAreaList(areas);		
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
-				reader.getWidth(), reader.getHeight(), view.isGridSelected());
+				reader.getWidth(), reader.getHeight(), view.isGridSelected(), false);
 		generator.generate();
 	}
 
@@ -98,7 +98,7 @@ public class MainController extends ApplicationController {
 		view.fillAreaList(areas);
 		OutputVideoGenerator generator = new OutputVideoGenerator(areas, reader.getVideoPaths(),
 				this.getNewVideoPaths(), reader.getNumViews(), reader.getNumFrames(),
-				reader.getWidth(), reader.getHeight(), view.isGridSelected());
+				reader.getWidth(), reader.getHeight(), view.isGridSelected(), false);
 		generator.generateRefFrame(refView, refFrame, output);
 		if( view.isCurrentMbTracingSelected() ) {
 			generator.generateCurrentMBTracing(refView, refFrame, view.getMinX(), view.getMinY(), view.getMaxX(), view.getMaxY());
