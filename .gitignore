@@ -1,2 +1,4 @@
 build
 dist
+data/output-files
+*.yuv
