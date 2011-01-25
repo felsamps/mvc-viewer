@@ -15,8 +15,6 @@ import javax.swing.JFileChooser;
  * @author felsamps
  */
 public class MainController extends ApplicationController {
-	private static String OUTPUT_PATH = "/home/felsamps/Tcc/mvc-viewer/data/output-files/";
-
 	private MainView view;
 	private CfgReader reader;
 	private TraceFileParser parser;
@@ -46,7 +44,7 @@ public class MainController extends ApplicationController {
 	private List<String> getNewVideoPaths() {
 		List<String> returnable = new ArrayList<String> ();
 		for(Integer i=0; i<reader.getNumViews(); i++) {
-			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
+			returnable.add(reader.getOutputPath() + "output_" + i.toString() + ".yuv");
 		}
 		return returnable;
 	}

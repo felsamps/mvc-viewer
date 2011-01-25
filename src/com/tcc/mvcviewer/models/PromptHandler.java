@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class PromptHandler {
 
-	private static String OUTPUT_PATH = "/home/felsamps/Tcc/mvc-viewer/data/output-files/";
 	DoFileReader doReader;
 	CfgReader cfgReader;
 	Video video;
@@ -60,7 +59,7 @@ public class PromptHandler {
 	private List<String> getNewVideoPaths() {
 		List<String> returnable = new ArrayList<String>();
 		for (Integer i = 0; i < cfgReader.getNumViews(); i++) {
-			returnable.add(OUTPUT_PATH + "output_" + i.toString() + ".yuv");
+			returnable.add(cfgReader.getOutputPath() + "output_" + i.toString() + ".yuv");
 		}
 		return returnable;
 	}

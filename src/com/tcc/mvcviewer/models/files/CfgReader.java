@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CfgReader extends FileReader {
 	private Integer numViews, gopSize;
@@ -13,6 +12,7 @@ public class CfgReader extends FileReader {
 	private Integer width, height;
 	private Integer numFrames;
 	private Integer searchRange;
+        private String outputPath;
 	
 
 	public CfgReader(String path) throws FileNotFoundException {
@@ -50,6 +50,9 @@ public class CfgReader extends FileReader {
 			if(command.equals("SEARCH_RANGE")) {
 				this.searchRange = Integer.parseInt(line[2]);
 			}
+                        if(command.equals("OUTPUT_PATH")) {
+                                this.outputPath = new String(line[2]);
+                        }
 			if(command.equals("TRACE_FILES_BEGIN")) {
 				for(int i=0; i<this.numViews; i++) {
 					this.traceFilePaths.add(this.nextLine());
@@ -60,6 +63,7 @@ public class CfgReader extends FileReader {
 					this.videoPaths.add(this.nextLine());
 				}
 			}
+
 		}
 	}
 
@@ -90,7 +94,8 @@ public class CfgReader extends FileReader {
 	public Integer getNumFrames() {
 		return numFrames;
 	}
-
-
+        public String getOutputPath() {
+                return outputPath;
+        }
 	
 }
